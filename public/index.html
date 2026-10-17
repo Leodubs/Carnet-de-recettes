@@ -9,448 +9,465 @@
 </head>
 <body>
 
-<header>
-  <h1>Carnet de recettes<span class="dot">.</span></h1>
-</header>
-
-<div class="toolbar">
-  <div class="tabs">
-    <button class="tab active" data-cat="sale">🧂 Salé</button>
-    <button class="tab" data-cat="sucre">🍰 Sucré</button>
-    <button class="tab" data-cat="sansgluten">🌾 Sans gluten</button>
+  <header>
+    <h1>Carnet de recettes<span class="dot">.</span></h1>
+  </header>
+  
+  <div class="toolbar">
+    <div class="tabs">
+      <button class="tab active" data-cat="sale">🧂 Salé</button>
+      <button class="tab" data-cat="sucre">🍰 Sucré</button>
+      <button class="tab" data-cat="sansgluten">🌾 Sans gluten</button>
+    </div>
+    <label class="search">
+      <span aria-hidden="true">🔎</span>
+      <input id="searchInput" type="text" placeholder="Rechercher une recette, un ingrédient…" />
+    </label>
+    <div class="count" id="count"></div>
   </div>
-  <label class="search">
-    <span aria-hidden="true">🔎</span>
-    <input id="searchInput" type="text" placeholder="Rechercher une recette, un ingrédient…" />
-  </label>
-  <div class="count" id="count"></div>
-</div>
-
-<main>
-  <div class="section-title">
-    <h2 id="catTitle">Salé</h2>
-    <span class="line"></span>
+  
+  <main>
+    <div class="section-title">
+      <h2 id="catTitle">Salé</h2>
+      <span class="line"></span>
+    </div>
+    <div class="grid" id="grid"></div>
+    <div class="empty" id="empty" style="display:none"></div>
+  </main>
+  
+  <div class="overlay" id="overlay">
+    <div class="modal" id="modal" role="dialog" aria-modal="true"></div>
   </div>
-  <div class="grid" id="grid"></div>
-  <div class="empty" id="empty" style="display:none"></div>
-</main>
-
-<div class="overlay" id="overlay">
-  <div class="modal" id="modal" role="dialog" aria-modal="true"></div>
-</div>
-
-<footer>
-  <p>Prototype d'inspirations culinaires · Créé avec Mistral © <a href="https://eleonoredbs.com">Eleonore Dubois</a></p>
-</footer>
-
-<script>
-const RECETTES = [
-  // ---------------- SALÉ ----------------
-  {
-    id: "assassina", cat: "sale", emoji: "🍝", name: "Spaghetti all'assassina",
-    time: "25 min", parts: "2 pers.", origin: "La « petite tuerie » de Bari",
-    desc: "Des spaghetti mi-cuits dans un bouillon de tomate, volontairement un peu cramés : croustillants, corsés, cultissimes.",
-    ingredients: [
-      "200 g de spaghetti", "400 g de passata ou pulpe de tomate", "60 cl de bouillon (légumes ou volaille) bien chaud",
-      "1 gousse d'ail", "1 pincée de piment séché", "3 c. à s. d'huile d'olive", "Sel, poivre"
-    ],
-    steps: [
-      "Verser l'huile dans une grande poêle avec l'ail écrasé et le piment. Faire chauffer à feu moyen.",
-      "Ajouter les spaghetti crus et les « toaster » 2 à 3 minutes dans l'huile, en remuant, jusqu'à ce qu'ils colorent légèrement.",
-      "Mélanger la passata au bouillon chaud. Verser une louche de ce liquide sur les pâtes.",
-      "Laisser absorber presque entièrement avant d'ajouter la louche suivante, en remuant souvent. Continuer ainsi 12 à 15 minutes : les pâtes cuisent comme un risotto.",
-      "Vers la fin, laisser le fond légèrement attacher et caraméliser : c'est le secret du goût « assassin ».",
-      "Servir immédiatement, croquant en surface, avec un filet d'huile d'olive crue."
-    ],
-    tip: "Ne pas avoir peur du croustillant : une légère carbonnade en fond de poêle est recherchée, c'est elle qui donne tout le goût."
-  },
-  {
-    id: "nobu", cat: "sale", emoji: "🐟", name: "Poisson façon Nobu",
-    time: "18 min + marinade", parts: "2 pers.", origin: "La recette culte du chef Nobu",
-    desc: "Dos de cabillaud (ou saumon) laqué dans une marinade miso-mirin, caramélisé au four. Un concentré d'umami.",
-    ingredients: [
-      "2 dos de cabillaud (ou pavés de saumon) très frais", "3 c. à s. de pâte de miso", "2 c. à s. de mirin",
-      "1 c. à s. de saké (ou d'eau)", "1 c. à s. de sucre", "Huile neutre pour le plat", "Riz et concombre pour servir"
-    ],
-    steps: [
-      "Fouetter le miso, le mirin, le saké et le sucre jusqu'à obtenir une marinade lisse.",
-      "Badigeonner généreusement le poisson sur toutes ses faces, le déposer dans un plat, filmer et réfrigérer 12 h (idéalement 24-48 h).",
-      "Préchauffer le four à 200 °C. Essuyer délicatement l'excédent de marinade avec du papier absorbant (pour éviter qu'elle ne brûle trop vite).",
-      "Disposer le poisson sur une plaque légèrement huilée et cuire 12 à 15 minutes : la laque doit caraméliser, la chair rester moelleuse.",
-      "Pour la touche restaurant : passer 1 à 2 minutes sous le grill ou au chalumeau pour une surface brillante et légèrement brûlée.",
-      "Servir avec un bol de riz et des rondelles de concombre saupoudrées de sésame."
-    ],
-    tip: "La marinade se garde une semaine au frais : préparée en grand volume, elle transforme aussi des aubergines ou du tofu."
-  },
-  {
-    id: "patates-balls", cat: "sale", emoji: "🥔", name: "Patates balls",
-    time: "40 min", parts: "4 pers.", origin: "Le croquant réconfortant, version four",
-    desc: "Boulettes croustillantes de pommes de terre au parmesan, cuites au four, servies avec une sauce yaourt-citron aux herbes.",
-    ingredients: [
-      "600 g de pommes de terre farineuses", "60 g de fécule de maïs", "40 g de parmesan râpé",
-      "1 jaune d'œuf", "1 c. à c. d'herbes de Provence", "Sel, poivre, paprika",
-      "Pour la sauce : 3 c. à s. de yaourt grec, 1 c. à s. de mayonnaise, jus d'un demi-citron, aneth ou ciboulette"
-    ],
-    steps: [
-      "Cuire les pommes de terre épluchées à l'eau salée 20 minutes, puis les écraser en purée bien sèche. Laisser tiédir.",
-      "Mélanger la purée avec la fécule, le parmesan, le jaune d'œuf, les herbes, sel, poivre et paprika.",
-      "Former des boulettes de la taille d'une noix (mains légèrement humides).",
-      "Les disposer sur une plaque chemisée, arroser d'un filet d'huile et cuire à 220 °C pendant 20 minutes en les retournant à mi-cuisson.",
-      "Pendant ce temps, mélanger tous les ingrédients de la sauce et ciseler les herbes.",
-      "Servir les boulettes bien dorées avec la sauce fraîche."
-    ],
-    tip: "Pour un croquant maximal, un passage de 5 minutes sous le grill en fin de cuisson fait des merveilles."
-  },
-  {
-    id: "tarte-oignons", cat: "sale", emoji: "🧅", name: "Tarte folle aux oignons caramélisés",
-    time: "1 h", parts: "6 pers.", origin: "La tarte folle du feed",
-    desc: "Pâte feuilletée, oignons fondus et caramélisés au balsamique, thym et menthe fraîche. Simple et spectaculaire.",
-    ingredients: [
-      "1 pâte feuilletée (ou maison)", "5 à 6 gros oignons", "30 g de beurre",
-      "1 c. à s. de sucre", "2 c. à s. de vinaigre balsamique", "Quelques brins de thym",
-      "100 g de comté ou de chèvre en rondelles", "Menthe fraîche, fleur de sel, poivre"
-    ],
-    steps: [
-      "Émincer finement les oignons. Les faire revenir à feu doux dans le beurre 30 à 35 minutes, en remuant de temps en temps, jusqu'à ce qu'ils soient profondément dorés.",
-      "Déglacer au balsamique, ajouter le sucre et le thym, saler, poivrer. Laisser refroidir 10 minutes.",
-      "Dérouler la pâte sur une plaque, replier les bords vers l'intérieur pour former un petit rebord et piquer le fond à la fourchette.",
-      "Garnir généreusement d'oignons, ajouter le fromage en copeaux ou rondelles.",
-      "Cuire à 190 °C pendant 28 à 30 minutes, jusqu'à ce que le bord soit doré et croustillant.",
-      "À la sortie du four, parsemer de menthe ciselée et d'un peu de fleur de sel. Déguster tiède."
-    ],
-    tip: "Les oignons peuvent être caramélisés la veille : la tarte n'en sera que plus rapide à assembler."
-  },
-  {
-    id: "noodles", cat: "sale", emoji: "🍜", name: "Noodles en 10 minutes",
-    time: "10 min", parts: "2 pers.", origin: "Le dîner express de la semaine",
-    desc: "Nouilles sautées façon asiatique, sauce soja-sésame-miel, œuf coulant et cacahuètes. Plus vite que la livraison.",
-    ingredients: [
-      "200 g de nouilles (udon, soba ou instantanées)", "2 c. à s. de sauce soja", "1 c. à s. de miel",
-      "1 c. à s. d'huile de sésame", "1 gousse d'ail râpée", "1 c. à c. de gingembre râpé",
-      "1 pincée de piment", "2 œufs", "Cacahuètes grillées, ciboule, coriandre"
-    ],
-    steps: [
-      "Cuire les nouilles selon le paquet, les égoutter et les rincer à l'eau froide.",
-      "Mélanger dans un bol le soja, le miel, l'huile de sésame, l'ail, le gingembre et le piment.",
-      "Dans un wok très chaud, faire frire les œufs sur feu vif 2 minutes (bord croustillant, jaune coulant). Réserver.",
-      "Verser les nouilles dans le wok avec la sauce, faire sauter 2 à 3 minutes pour qu'elles colorent légèrement.",
-      "Répartir dans les bols, ajouter l'œuf par-dessus, parsemer de cacahuètes concassées, de ciboule et de coriandre."
-    ],
-    tip: "Un reste de légumes (carottes, pak choï, petits pois) glissé dans le wok transforme ce bol en repas complet."
-  },
-  {
-    id: "poulet-coreen", cat: "sale", emoji: "🍗", name: "Poulet frit à la coréenne (air fryer)",
-    time: "40 min", parts: "4 pers.", origin: "Le yangnyeom chicken version air fryer",
-    desc: "Poulet croustillant enrobé d'une sauce gochujang mielleuse, sans friteuse. Collant, épicé, irrésistible.",
-    ingredients: [
-      "1 kg de hauts de cuisses ou pilons", "80 g de fécule de maïs", "1 c. à c. de poudre d'ail",
-      "1 c. à c. de paprika", "Sel, poivre", "Un peu d'huile en spray",
-      "Pour la sauce : 2 c. à s. de gochujang (pâte de piment coréenne), 2 c. à s. de miel, 1 c. à s. de sauce soja, 1 gousse d'ail râpée, 1 c. à c. de sésame grillé"
-    ],
-    steps: [
-      "Sécher le poulet avec du papier absorbant, le saler et le poivrer.",
-      "Enrober chaque morceau de fécule mélangée à l'ail en poudre et au paprika, en tapotant l'excédent.",
-      "Disposer en une seule couche dans le panier de l'air fryer, vaporiser d'huile, cuire 20 à 22 minutes à 200 °C en retournant à mi-cuisson.",
-      "Pendant ce temps, chauffer doucement le gochujang, le miel, le soja et l'ail dans une casserole jusqu'à consistance sirupeuse.",
-      "Badigeonner généreusement le poulet croustillant de sauce (au pinceau plutôt qu'en le noyant, pour garder le croustillant).",
-      "Saupoudrer de sésame et servir aussitôt, avec du riz et des radis pickles."
-    ],
-    tip: "Pas de gochujang ? Un mélange sauce sriracha + miel + pointe de vinaigre de riz s'en approche très bien."
-  },
-  {
-    id: "ramen", cat: "sale", emoji: "🍲", name: "Spicy chicken ramen",
-    time: "20 min", parts: "2 pers.", origin: "Le bol réconfort version maison",
-    desc: "Un bouillon épicé au poulet doré, œuf mollet, maïs et ciboule. Le ramen du dimanche soir, sans heures de cuisson.",
-    ingredients: [
-      "2 œufs", "250 g d'émincé de poulet", "1 c. à s. de pâte de piment (gochujang ou sriracha)",
-      "1 c. à s. de sauce soja", "1 gousse d'ail râpée", "1 c. à c. de gingembre râpé",
-      "80 cl de bouillon de volaille", "2 portions de nouilles ramen", "Maïs, ciboule, huile de sésame"
-    ],
-    steps: [
-      "Cuire les œufs 6 min 30 dans l'eau bouillante, les refroidir dans l'eau glacée, les écaler.",
-      "Dans une casserole, faire revenir le poulet dans un filet d'huile jusqu'à ce qu'il soit doré.",
-      "Ajouter l'ail, le gingembre et la pâte de piment, faire revenir 1 minute pour libérer les arômes.",
-      "Verser le bouillon et le soja, porter à frémissement et laisser cuire 8 à 10 minutes.",
-      "Cuire les nouilles à part selon le paquet, les répartir dans les bols.",
-      "Napper de bouillon et de poulet, ajouter l'œuf coupé en deux, le maïs, la ciboule et un filet d'huile de sésame."
-    ],
-    tip: "Le secret d'un œuf mollet parfait : œufs à température ambiante, 6 min 30 de cuisson, choc thermique immédiat."
-  },
-  {
-    id: "ajo-blanco", cat: "sale", emoji: "🥣", name: "Ajo blanco (soupe froide de Malaga)",
-    time: "10 min + repos", parts: "4 pers.", origin: "Le velouté glacé de Malaga, Espagne",
-    desc: "Velouté glacé d'amandes, ail, pain rassis et huile d'olive, servi avec raisins muscat et filet de miel.",
-    ingredients: [
-      "150 g d'amandes entières crues", "100 g de pain rassis (mie)", "1 petite gousse d'ail (2 si on aime)",
-      "3 c. à s. d'huile d'olive fruitée", "1 c. à s. de vinaigre de Xérès", "Eau glacée (environ 25 cl)",
-      "Sel", "Raisins muscat et filet de miel pour servir"
-    ],
-    steps: [
-      "Mixer longuement les amandes avec l'ail et une pincée de sel jusqu'à obtenir une pâte fine (5 minutes au blender pour qu'elle devienne lisse).",
-      "Ajouter le pain en morceaux, puis l'huile d'olive et le vinaigre. Mixer de nouveau.",
-      "Détendre avec l'eau glacée jusqu'à une consistance de crème légèrement épaisse. Goûter, ajuster sel et vinaigre.",
-      "Réfrigérer au moins 2 heures, la texture doit être veloutée et bien froide.",
-      "Servir en verres ou assiettes creuses avec quelques raisins coupés, un trait de miel et quelques gouttes d'huile d'olive."
-    ],
-    tip: "L'ail blanchi 30 secondes dans l'eau bouillante garde tout son parfum sans piquer : indispensable si on sert des invités."
-  },
-
-  // ---------------- SUCRÉ ----------------
-  {
-    id: "spritz", cat: "sucre", emoji: "🍪", name: "Spritz viennois",
-    time: "45 min", parts: "20 sablés", origin: "Fabuleusement sablés",
-    desc: "Les petits sablés de Vienne fondants, fourrés à la confiture et au chocolat. Le compagnon idéal du café.",
-    ingredients: [
-      "150 g de beurre pommade", "80 g de sucre glace", "1 sachet de sucre vanillé",
-      "1 jaune d'œuf", "200 g de farine", "1 pincée de sel",
-      "Confiture de groseilles ou framboises", "100 g de chocolat noir fondu"
-    ],
-    steps: [
-      "Crémer le beurre avec le sucre glace et le sucre vanillé jusqu'à ce que le mélange blanchisse.",
-      "Ajouter le jaune, puis la farine et le sel. Fraiser du bout des doigts : la pâte doit être souple sans être élastique.",
-      "Filmer et réfrigérer 30 minutes.",
-      "Préchauffer le four à 170 °C. Former des petits boudins d'environ 3 cm, légèrement pointus aux extrémités.",
-      "Cuire 12 minutes : ils doivent rester très pâles, à peine dorés dessous. Laisser refroidir complètement sur une grille.",
-      "Coller les sablés deux par deux avec un peu de confiture, puis tremper les deux extrémités dans le chocolat fondu. Laisser prendre."
-    ],
-    tip: "Le secret du sablé fondant : un beurre de qualité et une cuisson courte. Mieux vaut trop pâle que trop doré."
-  },
-  {
-    id: "chia-tiramisu", cat: "sucre", emoji: "🍮", name: "Tiramisu chia pudding protéiné",
-    time: "5 min + une nuit", parts: "2 pots", origin: "Vu chez @aurafigueira",
-    desc: "Le tiramisu réinventé en pudding : chia, yaourt grec, mascarpone, café et cacao. Le dessert fitness qui a tout d'un classique.",
-    ingredients: [
-      "3 c. à s. de graines de chia", "20 cl de lait (ou boisson végétale)",
-      "150 g de yaourt grec", "2 c. à s. de mascarpone", "1 c. à s. de sirop d'érable",
-      "2 c. à s. de café fort refroidi", "Cacao amer en poudre", "Quelques carrés de chocolat noir (facultatif)"
-    ],
-    steps: [
-      "Mélanger les graines de chia avec le lait et 1 c. à c. de sirop d'érable. Laisser reposer 10 minutes puis remuer à nouveau pour éviter les grumeaux.",
-      "Réfrigérer une nuit (ou au moins 4 heures) : le pudding doit être pris et épais.",
-      "Fouetter le yaourt grec avec le mascarpone et le reste de sirop d'érable jusqu'à consistance mousseuse.",
-      "Incorporer délicatement le café froid au mascarpone.",
-      "Alterner dans deux verres : couche de chia, couche de mascarpone au café, renouveler.",
-      "Saupoudrer généreusement de cacao amer et râper un peu de chocolat noir. Garder au frais jusqu'à la dégustation."
-    ],
-    tip: "Pour un tiramisu encore plus café : badigeonner le pudding de chia d'un trait de café avant d'ajouter la couche mascarpone."
-  },
-  {
-    id: "sorbet-fraise", cat: "sucre", emoji: "🍓", name: "Sorbet fraise express",
-    time: "5 min + congélation", parts: "4 pers.", origin: "La fraise en version glacée",
-    desc: "Un sorbet maison sans sorbetière : fraises congelées, citron et sucre glace, mixé en 5 minutes.",
-    ingredients: [
-      "500 g de fraises congelées", "Le jus d'un demi-citron", "70 g de sucre glace (à ajuster)",
-      "1 pincée de sel", "Quelques feuilles de basilic ou menthe (facultatif)"
-    ],
-    steps: [
-      "Sortir les fraises du congélateur 5 minutes avant pour qu'elles s'assouplissent à peine.",
-      "Mixer les fraises avec le jus de citron, le sucre glace et la pincée de sel, par pulsations, jusqu'à une consistance crémeuse.",
-      "Racler les parois et mixer de nouveau : la texture doit être celle d'une glace molle, immédiatement lisse.",
-      "Déguster tel quel (texture « soft ») ou transférer au congélateur 2 heures dans un bac hermétique pour un sorbet plus ferme.",
-      "Servir en coupelles avec une feuille de basilic ou de menthe."
-    ],
-    tip: "La même méthode marche avec mangue, ananas ou framboises congelées : une base à décliner toute l'année."
-  },
-  {
-    id: "cookies", cat: "sucre", emoji: "🍫", name: "Cookies au chocolat",
-    time: "25 min + repos", parts: "12 cookies", origin: "Les cookies parfaits du feed",
-    desc: "Cœur fondant, bord croustillant, beurre noisette et fleur de sel. Le cookie qui fait fuir le régime.",
-    ingredients: [
-      "120 g de beurre (fondu en noisette)", "90 g de sucre roux", "40 g de sucre semoule",
-      "1 œuf", "1 c. à c. de vanille liquide", "180 g de farine",
-      "1/2 c. à c. de levure chimique", "1 pincée de fleur de sel", "150 g de pépites de chocolat noir"
-    ],
-    steps: [
-      "Faire fondre le beurre à feu doux jusqu'à ce qu'il embaume la noisette (2-3 minutes), laisser tiédir.",
-      "Mélanger le beurre avec les deux sucres, puis l'œuf et la vanille.",
-      "Ajouter la farine, la levure et le sel, puis les pépites. Pétrir juste assez pour homogénéiser.",
-      "Réfrigérer la pâte 30 minutes minimum : c'est ce qui concentre le goût et évite l'étalement.",
-      "Préchauffer le four à 180 °C. Former 12 boules, les espacer sur une plaque chemisée.",
-      "Cuire 10 à 12 minutes : le bord doit être doré, le centre encore clair et souple. Saler d'une pincée de fleur de sel à la sortie du four, laisser durcir 5 minutes sur la plaque."
-    ],
-    tip: "Un cookie refroidi trop dur ? 10 secondes au micro-ondes et il redevient coulant comme à la sortie du four."
-  },
-  {
-    id: "verrines", cat: "sucre", emoji: "🍮", name: "Desserts en pots (verrines chocolat)",
-    time: "20 min + repos", parts: "4 pots", origin: "Les petits pots gourmands du feed",
-    desc: "Couches de speculoos, crème chocolat onctueuse et chantilly : les desserts en pots qui se dégustent à la petite cuillère.",
-    ingredients: [
-      "8 speculoos (ou biscuits sablés)", "20 cl de crème liquide entière + 20 cl pour la chantilly",
-      "100 g de chocolat noir", "1 jaune d'œuf", "20 g de sucre",
-      "1 c. à c. de vanille liquide", "Copeaux de chocolat pour la finition"
-    ],
-    steps: [
-      "Émietter grossièrement les speculoos et tapisser le fond de 4 pots ou verrines.",
-      "Porter 20 cl de crème à frémissement, verser sur le chocolat cassé en morceaux, attendre 2 minutes puis lisser.",
-      "Hors du feu, incorporer le jaune d'œuf et le sucre en fouettant (la crème est chaude mais pas bouillante).",
-      "Verser la crème chocolat sur les biscuits et réfrigérer 2 heures minimum.",
-      "Monter les 20 cl de crème restants en chantilly avec la vanille, napper chaque pot.",
-      "Parsemer de copeaux de chocolat et servir bien frais."
-    ],
-    tip: "Version caramel beurre salé : remplacer le chocolat par 100 g de caramel à tartiner, même succès garanti."
-  },
-  {
-    id: "pate-magique", cat: "sucre", emoji: "🥧", name: "La pâte magique",
-    time: "10 min", parts: "1 pâte", origin: "La pâte à tout faire, sans repos",
-    desc: "Une seule pâte pour tartes, galettes et sablés : beurre fondu, farine et un soupçon de sucre. Zéro pétrissage, zéro repos.",
-    ingredients: [
-      "250 g de farine", "100 g de beurre fondu", "50 g de sucre (ou 1 c. à s. seulement pour une version salée)",
-      "5 cl d'eau", "1 pincée de sel", "1 c. à c. de vanille (pour le sucré)"
-    ],
-    steps: [
-      "Mélanger dans un saladier la farine, le sucre et le sel.",
-      "Ajouter le beurre fondu, puis l'eau (et la vanille pour une version sucrée).",
-      "Mélanger à la cuillère puis rassembler à la main : la pâte se forme en boule, souple, sans pétrir.",
-      "L'étaler immédiatement entre deux feuilles de papier cuisson (elle ne demande aucun repos).",
-      "Foncer un moule à tarte, piquer à la fourchette, garnir et cuire selon la recette (environ 25 minutes à 180 °C)."
-    ],
-    tip: "En version salée (1 c. à s. de sucre seulement), elle devient la base parfaite des quiches et tourtes aux légumes."
+  
+  <footer>
+    <p>Prototype imaginé pour mes inspirations culinaires · Créé avec Mistral © <a href="https://eleonoredbs.com">Eleonore Dubois</a></p>
+  </footer>
+  
+  <script>
+  /* ═══════════════════════════════════════════════════════════════════
+     📌 BACK DU SITE — AJOUTER / MODIFIER LES RECETTES ICI
+     Pour ajouter une recette : copiez un bloc { ... } existant,
+     adaptez les champs, collez-le dans la liste ci-dessous.
+     Champs :
+       id          identifiant unique sans espaces ("tarte-courgettes")
+       cat         "sale" | "sucre" | "sansgluten"
+       name        titre de la recette
+       time / parts  temps et portions affichés
+       origin      petite source ("Vu chez @compte")
+       desc        description courte de la carte
+       ingredients tableau de chaînes
+       steps       tableau de chaînes (étapes numérotées)
+       tip         astuce (facultatif)
+     Puis déclarez ses tags dans TAGS, juste après la liste.
+     ═══════════════════════════════════════════════════════════════════ */
+  const RECETTES = [
+    // ---------------- SALÉ ----------------
+    {
+      id: "assassina", cat: "sale", emoji: "🍝", name: "Spaghetti all'assassina",
+      time: "25 min", parts: "2 pers.", origin: "La « petite tuerie » de Bari",
+      desc: "Des spaghetti mi-cuits dans un bouillon de tomate, volontairement un peu cramés : croustillants, corsés, cultissimes.",
+      ingredients: [
+        "200 g de spaghetti", "400 g de passata ou pulpe de tomate", "60 cl de bouillon (légumes ou volaille) bien chaud",
+        "1 gousse d'ail", "1 pincée de piment séché", "3 c. à s. d'huile d'olive", "Sel, poivre"
+      ],
+      steps: [
+        "Verser l'huile dans une grande poêle avec l'ail écrasé et le piment. Faire chauffer à feu moyen.",
+        "Ajouter les spaghetti crus et les « toaster » 2 à 3 minutes dans l'huile, en remuant, jusqu'à ce qu'ils colorent légèrement.",
+        "Mélanger la passata au bouillon chaud. Verser une louche de ce liquide sur les pâtes.",
+        "Laisser absorber presque entièrement avant d'ajouter la louche suivante, en remuant souvent. Continuer ainsi 12 à 15 minutes : les pâtes cuisent comme un risotto.",
+        "Vers la fin, laisser le fond légèrement attacher et caraméliser : c'est le secret du goût « assassin ».",
+        "Servir immédiatement, croquant en surface, avec un filet d'huile d'olive crue."
+      ],
+      tip: "Ne pas avoir peur du croustillant : une légère carbonnade en fond de poêle est recherchée, c'est elle qui donne tout le goût."
+    },
+    {
+      id: "nobu", cat: "sale", emoji: "🐟", name: "Poisson façon Nobu",
+      time: "18 min + marinade", parts: "2 pers.", origin: "La recette culte du chef Nobu",
+      desc: "Dos de cabillaud (ou saumon) laqué dans une marinade miso-mirin, caramélisé au four. Un concentré d'umami.",
+      ingredients: [
+        "2 dos de cabillaud (ou pavés de saumon) très frais", "3 c. à s. de pâte de miso", "2 c. à s. de mirin",
+        "1 c. à s. de saké (ou d'eau)", "1 c. à s. de sucre", "Huile neutre pour le plat", "Riz et concombre pour servir"
+      ],
+      steps: [
+        "Fouetter le miso, le mirin, le saké et le sucre jusqu'à obtenir une marinade lisse.",
+        "Badigeonner généreusement le poisson sur toutes ses faces, le déposer dans un plat, filmer et réfrigérer 12 h (idéalement 24-48 h).",
+        "Préchauffer le four à 200 °C. Essuyer délicatement l'excédent de marinade avec du papier absorbant (pour éviter qu'elle ne brûle trop vite).",
+        "Disposer le poisson sur une plaque légèrement huilée et cuire 12 à 15 minutes : la laque doit caraméliser, la chair rester moelleuse.",
+        "Pour la touche restaurant : passer 1 à 2 minutes sous le grill ou au chalumeau pour une surface brillante et légèrement brûlée.",
+        "Servir avec un bol de riz et des rondelles de concombre saupoudrées de sésame."
+      ],
+      tip: "La marinade se garde une semaine au frais : préparée en grand volume, elle transforme aussi des aubergines ou du tofu."
+    },
+    {
+      id: "patates-balls", cat: "sale", emoji: "🥔", name: "Patates balls",
+      time: "40 min", parts: "4 pers.", origin: "Le croquant réconfortant, version four",
+      desc: "Boulettes croustillantes de pommes de terre au parmesan, cuites au four, servies avec une sauce yaourt-citron aux herbes.",
+      ingredients: [
+        "600 g de pommes de terre farineuses", "60 g de fécule de maïs", "40 g de parmesan râpé",
+        "1 jaune d'œuf", "1 c. à c. d'herbes de Provence", "Sel, poivre, paprika",
+        "Pour la sauce : 3 c. à s. de yaourt grec, 1 c. à s. de mayonnaise, jus d'un demi-citron, aneth ou ciboulette"
+      ],
+      steps: [
+        "Cuire les pommes de terre épluchées à l'eau salée 20 minutes, puis les écraser en purée bien sèche. Laisser tiédir.",
+        "Mélanger la purée avec la fécule, le parmesan, le jaune d'œuf, les herbes, sel, poivre et paprika.",
+        "Former des boulettes de la taille d'une noix (mains légèrement humides).",
+        "Les disposer sur une plaque chemisée, arroser d'un filet d'huile et cuire à 220 °C pendant 20 minutes en les retournant à mi-cuisson.",
+        "Pendant ce temps, mélanger tous les ingrédients de la sauce et ciseler les herbes.",
+        "Servir les boulettes bien dorées avec la sauce fraîche."
+      ],
+      tip: "Pour un croquant maximal, un passage de 5 minutes sous le grill en fin de cuisson fait des merveilles."
+    },
+    {
+      id: "tarte-oignons", cat: "sale", emoji: "🧅", name: "Tarte folle aux oignons caramélisés",
+      time: "1 h", parts: "6 pers.", origin: "La tarte folle du feed",
+      desc: "Pâte feuilletée, oignons fondus et caramélisés au balsamique, thym et menthe fraîche. Simple et spectaculaire.",
+      ingredients: [
+        "1 pâte feuilletée (ou maison)", "5 à 6 gros oignons", "30 g de beurre",
+        "1 c. à s. de sucre", "2 c. à s. de vinaigre balsamique", "Quelques brins de thym",
+        "100 g de comté ou de chèvre en rondelles", "Menthe fraîche, fleur de sel, poivre"
+      ],
+      steps: [
+        "Émincer finement les oignons. Les faire revenir à feu doux dans le beurre 30 à 35 minutes, en remuant de temps en temps, jusqu'à ce qu'ils soient profondément dorés.",
+        "Déglacer au balsamique, ajouter le sucre et le thym, saler, poivrer. Laisser refroidir 10 minutes.",
+        "Dérouler la pâte sur une plaque, replier les bords vers l'intérieur pour former un petit rebord et piquer le fond à la fourchette.",
+        "Garnir généreusement d'oignons, ajouter le fromage en copeaux ou rondelles.",
+        "Cuire à 190 °C pendant 28 à 30 minutes, jusqu'à ce que le bord soit doré et croustillant.",
+        "À la sortie du four, parsemer de menthe ciselée et d'un peu de fleur de sel. Déguster tiède."
+      ],
+      tip: "Les oignons peuvent être caramélisés la veille : la tarte n'en sera que plus rapide à assembler."
+    },
+    {
+      id: "noodles", cat: "sale", emoji: "🍜", name: "Noodles en 10 minutes",
+      time: "10 min", parts: "2 pers.", origin: "Le dîner express de la semaine",
+      desc: "Nouilles sautées façon asiatique, sauce soja-sésame-miel, œuf coulant et cacahuètes. Plus vite que la livraison.",
+      ingredients: [
+        "200 g de nouilles (udon, soba ou instantanées)", "2 c. à s. de sauce soja", "1 c. à s. de miel",
+        "1 c. à s. d'huile de sésame", "1 gousse d'ail râpée", "1 c. à c. de gingembre râpé",
+        "1 pincée de piment", "2 œufs", "Cacahuètes grillées, ciboule, coriandre"
+      ],
+      steps: [
+        "Cuire les nouilles selon le paquet, les égoutter et les rincer à l'eau froide.",
+        "Mélanger dans un bol le soja, le miel, l'huile de sésame, l'ail, le gingembre et le piment.",
+        "Dans un wok très chaud, faire frire les œufs sur feu vif 2 minutes (bord croustillant, jaune coulant). Réserver.",
+        "Verser les nouilles dans le wok avec la sauce, faire sauter 2 à 3 minutes pour qu'elles colorent légèrement.",
+        "Répartir dans les bols, ajouter l'œuf par-dessus, parsemer de cacahuètes concassées, de ciboule et de coriandre."
+      ],
+      tip: "Un reste de légumes (carottes, pak choï, petits pois) glissé dans le wok transforme ce bol en repas complet."
+    },
+    {
+      id: "poulet-coreen", cat: "sale", emoji: "🍗", name: "Poulet frit à la coréenne (air fryer)",
+      time: "40 min", parts: "4 pers.", origin: "Le yangnyeom chicken version air fryer",
+      desc: "Poulet croustillant enrobé d'une sauce gochujang mielleuse, sans friteuse. Collant, épicé, irrésistible.",
+      ingredients: [
+        "1 kg de hauts de cuisses ou pilons", "80 g de fécule de maïs", "1 c. à c. de poudre d'ail",
+        "1 c. à c. de paprika", "Sel, poivre", "Un peu d'huile en spray",
+        "Pour la sauce : 2 c. à s. de gochujang (pâte de piment coréenne), 2 c. à s. de miel, 1 c. à s. de sauce soja, 1 gousse d'ail râpée, 1 c. à c. de sésame grillé"
+      ],
+      steps: [
+        "Sécher le poulet avec du papier absorbant, le saler et le poivrer.",
+        "Enrober chaque morceau de fécule mélangée à l'ail en poudre et au paprika, en tapotant l'excédent.",
+        "Disposer en une seule couche dans le panier de l'air fryer, vaporiser d'huile, cuire 20 à 22 minutes à 200 °C en retournant à mi-cuisson.",
+        "Pendant ce temps, chauffer doucement le gochujang, le miel, le soja et l'ail dans une casserole jusqu'à consistance sirupeuse.",
+        "Badigeonner généreusement le poulet croustillant de sauce (au pinceau plutôt qu'en le noyant, pour garder le croustillant).",
+        "Saupoudrer de sésame et servir aussitôt, avec du riz et des radis pickles."
+      ],
+      tip: "Pas de gochujang ? Un mélange sauce sriracha + miel + pointe de vinaigre de riz s'en approche très bien."
+    },
+    {
+      id: "ramen", cat: "sale", emoji: "🍲", name: "Spicy chicken ramen",
+      time: "20 min", parts: "2 pers.", origin: "Le bol réconfort version maison",
+      desc: "Un bouillon épicé au poulet doré, œuf mollet, maïs et ciboule. Le ramen du dimanche soir, sans heures de cuisson.",
+      ingredients: [
+        "2 œufs", "250 g d'émincé de poulet", "1 c. à s. de pâte de piment (gochujang ou sriracha)",
+        "1 c. à s. de sauce soja", "1 gousse d'ail râpée", "1 c. à c. de gingembre râpé",
+        "80 cl de bouillon de volaille", "2 portions de nouilles ramen", "Maïs, ciboule, huile de sésame"
+      ],
+      steps: [
+        "Cuire les œufs 6 min 30 dans l'eau bouillante, les refroidir dans l'eau glacée, les écaler.",
+        "Dans une casserole, faire revenir le poulet dans un filet d'huile jusqu'à ce qu'il soit doré.",
+        "Ajouter l'ail, le gingembre et la pâte de piment, faire revenir 1 minute pour libérer les arômes.",
+        "Verser le bouillon et le soja, porter à frémissement et laisser cuire 8 à 10 minutes.",
+        "Cuire les nouilles à part selon le paquet, les répartir dans les bols.",
+        "Napper de bouillon et de poulet, ajouter l'œuf coupé en deux, le maïs, la ciboule et un filet d'huile de sésame."
+      ],
+      tip: "Le secret d'un œuf mollet parfait : œufs à température ambiante, 6 min 30 de cuisson, choc thermique immédiat."
+    },
+    {
+      id: "ajo-blanco", cat: "sale", emoji: "🥣", name: "Ajo blanco (soupe froide de Malaga)",
+      time: "10 min + repos", parts: "4 pers.", origin: "Le velouté glacé de Malaga, Espagne",
+      desc: "Velouté glacé d'amandes, ail, pain rassis et huile d'olive, servi avec raisins muscat et filet de miel.",
+      ingredients: [
+        "150 g d'amandes entières crues", "100 g de pain rassis (mie)", "1 petite gousse d'ail (2 si on aime)",
+        "3 c. à s. d'huile d'olive fruitée", "1 c. à s. de vinaigre de Xérès", "Eau glacée (environ 25 cl)",
+        "Sel", "Raisins muscat et filet de miel pour servir"
+      ],
+      steps: [
+        "Mixer longuement les amandes avec l'ail et une pincée de sel jusqu'à obtenir une pâte fine (5 minutes au blender pour qu'elle devienne lisse).",
+        "Ajouter le pain en morceaux, puis l'huile d'olive et le vinaigre. Mixer de nouveau.",
+        "Détendre avec l'eau glacée jusqu'à une consistance de crème légèrement épaisse. Goûter, ajuster sel et vinaigre.",
+        "Réfrigérer au moins 2 heures, la texture doit être veloutée et bien froide.",
+        "Servir en verres ou assiettes creuses avec quelques raisins coupés, un trait de miel et quelques gouttes d'huile d'olive."
+      ],
+      tip: "L'ail blanchi 30 secondes dans l'eau bouillante garde tout son parfum sans piquer : indispensable si on sert des invités."
+    },
+  
+    // ---------------- SUCRÉ ----------------
+    {
+      id: "spritz", cat: "sucre", emoji: "🍪", name: "Spritz viennois",
+      time: "45 min", parts: "20 sablés", origin: "Fabuleusement sablés",
+      desc: "Les petits sablés de Vienne fondants, fourrés à la confiture et au chocolat. Le compagnon idéal du café.",
+      ingredients: [
+        "150 g de beurre pommade", "80 g de sucre glace", "1 sachet de sucre vanillé",
+        "1 jaune d'œuf", "200 g de farine", "1 pincée de sel",
+        "Confiture de groseilles ou framboises", "100 g de chocolat noir fondu"
+      ],
+      steps: [
+        "Crémer le beurre avec le sucre glace et le sucre vanillé jusqu'à ce que le mélange blanchisse.",
+        "Ajouter le jaune, puis la farine et le sel. Fraiser du bout des doigts : la pâte doit être souple sans être élastique.",
+        "Filmer et réfrigérer 30 minutes.",
+        "Préchauffer le four à 170 °C. Former des petits boudins d'environ 3 cm, légèrement pointus aux extrémités.",
+        "Cuire 12 minutes : ils doivent rester très pâles, à peine dorés dessous. Laisser refroidir complètement sur une grille.",
+        "Coller les sablés deux par deux avec un peu de confiture, puis tremper les deux extrémités dans le chocolat fondu. Laisser prendre."
+      ],
+      tip: "Le secret du sablé fondant : un beurre de qualité et une cuisson courte. Mieux vaut trop pâle que trop doré."
+    },
+    {
+      id: "chia-tiramisu", cat: "sucre", emoji: "🍮", name: "Tiramisu chia pudding protéiné",
+      time: "5 min + une nuit", parts: "2 pots", origin: "Vu chez @aurafigueira",
+      desc: "Le tiramisu réinventé en pudding : chia, yaourt grec, mascarpone, café et cacao. Le dessert fitness qui a tout d'un classique.",
+      ingredients: [
+        "3 c. à s. de graines de chia", "20 cl de lait (ou boisson végétale)",
+        "150 g de yaourt grec", "2 c. à s. de mascarpone", "1 c. à s. de sirop d'érable",
+        "2 c. à s. de café fort refroidi", "Cacao amer en poudre", "Quelques carrés de chocolat noir (facultatif)"
+      ],
+      steps: [
+        "Mélanger les graines de chia avec le lait et 1 c. à c. de sirop d'érable. Laisser reposer 10 minutes puis remuer à nouveau pour éviter les grumeaux.",
+        "Réfrigérer une nuit (ou au moins 4 heures) : le pudding doit être pris et épais.",
+        "Fouetter le yaourt grec avec le mascarpone et le reste de sirop d'érable jusqu'à consistance mousseuse.",
+        "Incorporer délicatement le café froid au mascarpone.",
+        "Alterner dans deux verres : couche de chia, couche de mascarpone au café, renouveler.",
+        "Saupoudrer généreusement de cacao amer et râper un peu de chocolat noir. Garder au frais jusqu'à la dégustation."
+      ],
+      tip: "Pour un tiramisu encore plus café : badigeonner le pudding de chia d'un trait de café avant d'ajouter la couche mascarpone."
+    },
+    {
+      id: "sorbet-fraise", cat: "sucre", emoji: "🍓", name: "Sorbet fraise express",
+      time: "5 min + congélation", parts: "4 pers.", origin: "La fraise en version glacée",
+      desc: "Un sorbet maison sans sorbetière : fraises congelées, citron et sucre glace, mixé en 5 minutes.",
+      ingredients: [
+        "500 g de fraises congelées", "Le jus d'un demi-citron", "70 g de sucre glace (à ajuster)",
+        "1 pincée de sel", "Quelques feuilles de basilic ou menthe (facultatif)"
+      ],
+      steps: [
+        "Sortir les fraises du congélateur 5 minutes avant pour qu'elles s'assouplissent à peine.",
+        "Mixer les fraises avec le jus de citron, le sucre glace et la pincée de sel, par pulsations, jusqu'à une consistance crémeuse.",
+        "Racler les parois et mixer de nouveau : la texture doit être celle d'une glace molle, immédiatement lisse.",
+        "Déguster tel quel (texture « soft ») ou transférer au congélateur 2 heures dans un bac hermétique pour un sorbet plus ferme.",
+        "Servir en coupelles avec une feuille de basilic ou de menthe."
+      ],
+      tip: "La même méthode marche avec mangue, ananas ou framboises congelées : une base à décliner toute l'année."
+    },
+    {
+      id: "cookies", cat: "sucre", emoji: "🍫", name: "Cookies au chocolat",
+      time: "25 min + repos", parts: "12 cookies", origin: "Les cookies parfaits du feed",
+      desc: "Cœur fondant, bord croustillant, beurre noisette et fleur de sel. Le cookie qui fait fuir le régime.",
+      ingredients: [
+        "120 g de beurre (fondu en noisette)", "90 g de sucre roux", "40 g de sucre semoule",
+        "1 œuf", "1 c. à c. de vanille liquide", "180 g de farine",
+        "1/2 c. à c. de levure chimique", "1 pincée de fleur de sel", "150 g de pépites de chocolat noir"
+      ],
+      steps: [
+        "Faire fondre le beurre à feu doux jusqu'à ce qu'il embaume la noisette (2-3 minutes), laisser tiédir.",
+        "Mélanger le beurre avec les deux sucres, puis l'œuf et la vanille.",
+        "Ajouter la farine, la levure et le sel, puis les pépites. Pétrir juste assez pour homogénéiser.",
+        "Réfrigérer la pâte 30 minutes minimum : c'est ce qui concentre le goût et évite l'étalement.",
+        "Préchauffer le four à 180 °C. Former 12 boules, les espacer sur une plaque chemisée.",
+        "Cuire 10 à 12 minutes : le bord doit être doré, le centre encore clair et souple. Saler d'une pincée de fleur de sel à la sortie du four, laisser durcir 5 minutes sur la plaque."
+      ],
+      tip: "Un cookie refroidi trop dur ? 10 secondes au micro-ondes et il redevient coulant comme à la sortie du four."
+    },
+    {
+      id: "verrines", cat: "sucre", emoji: "🍮", name: "Desserts en pots (verrines chocolat)",
+      time: "20 min + repos", parts: "4 pots", origin: "Les petits pots gourmands du feed",
+      desc: "Couches de speculoos, crème chocolat onctueuse et chantilly : les desserts en pots qui se dégustent à la petite cuillère.",
+      ingredients: [
+        "8 speculoos (ou biscuits sablés)", "20 cl de crème liquide entière + 20 cl pour la chantilly",
+        "100 g de chocolat noir", "1 jaune d'œuf", "20 g de sucre",
+        "1 c. à c. de vanille liquide", "Copeaux de chocolat pour la finition"
+      ],
+      steps: [
+        "Émietter grossièrement les speculoos et tapisser le fond de 4 pots ou verrines.",
+        "Porter 20 cl de crème à frémissement, verser sur le chocolat cassé en morceaux, attendre 2 minutes puis lisser.",
+        "Hors du feu, incorporer le jaune d'œuf et le sucre en fouettant (la crème est chaude mais pas bouillante).",
+        "Verser la crème chocolat sur les biscuits et réfrigérer 2 heures minimum.",
+        "Monter les 20 cl de crème restants en chantilly avec la vanille, napper chaque pot.",
+        "Parsemer de copeaux de chocolat et servir bien frais."
+      ],
+      tip: "Version caramel beurre salé : remplacer le chocolat par 100 g de caramel à tartiner, même succès garanti."
+    },
+    {
+      id: "pate-magique", cat: "sucre", emoji: "🥧", name: "La pâte magique",
+      time: "10 min", parts: "1 pâte", origin: "La pâte à tout faire, sans repos",
+      desc: "Une seule pâte pour tartes, galettes et sablés : beurre fondu, farine et un soupçon de sucre. Zéro pétrissage, zéro repos.",
+      ingredients: [
+        "250 g de farine", "100 g de beurre fondu", "50 g de sucre (ou 1 c. à s. seulement pour une version salée)",
+        "5 cl d'eau", "1 pincée de sel", "1 c. à c. de vanille (pour le sucré)"
+      ],
+      steps: [
+        "Mélanger dans un saladier la farine, le sucre et le sel.",
+        "Ajouter le beurre fondu, puis l'eau (et la vanille pour une version sucrée).",
+        "Mélanger à la cuillère puis rassembler à la main : la pâte se forme en boule, souple, sans pétrir.",
+        "L'étaler immédiatement entre deux feuilles de papier cuisson (elle ne demande aucun repos).",
+        "Foncer un moule à tarte, piquer à la fourchette, garnir et cuire selon la recette (environ 25 minutes à 180 °C)."
+      ],
+      tip: "En version salée (1 c. à s. de sucre seulement), elle devient la base parfaite des quiches et tourtes aux légumes."
+    }
+  ];
+  
+  // 🏷 TAGS PAR RECETTE — valeurs possibles : "viande", "poisson", "végé", "vegan"
+  const TAGS = {
+    assassina: ["végé"],
+    nobu: ["poisson"],
+    "patates-balls": ["végé"],
+    "tarte-oignons": ["végé"],
+    noodles: ["végé"],
+    "poulet-coreen": ["viande"],
+    ramen: ["viande"],
+    "ajo-blanco": ["vegan"],
+    spritz: ["végé"],
+    "chia-tiramisu": ["végé"],
+    "sorbet-fraise": ["vegan"],
+    cookies: ["végé"],
+    verrines: ["végé"],
+    "pate-magique": ["végé"]
+  };
+  
+  // ---------- Rendu ----------
+  const CATS = {
+    sale: { label: "Salé", chipLabel: "🧂 Partie salée" },
+    sucre: { label: "Sucré", chipLabel: "🍰 Partie sucrée" },
+    sansgluten: { label: "Sans gluten", chipLabel: "🌾 Sans gluten" }
+  };
+  const grid = document.getElementById("grid");
+  const catTitle = document.getElementById("catTitle");
+  const empty = document.getElementById("empty");
+  const searchInput = document.getElementById("searchInput");
+  const count = document.getElementById("count");
+  let activeCat = "sale";
+  
+  function tagsHTML(r) {
+    return `<div class="card-tags">${(TAGS[r.id] || []).map(t =>
+      `<span class="tag-pill pill-${t === "végé" ? "vege" : t}">${t}</span>`).join("")}</div>`;
   }
-];
-
-// ---------- Rendu ----------
-const CATS = {
-  sale: { label: "Salé", chipLabel: "🧂 Partie salée" },
-  sucre: { label: "Sucré", chipLabel: "🍰 Partie sucrée" },
-  sansgluten: { label: "Sans gluten", chipLabel: "🌾 Sans gluten" }
-};
-const grid = document.getElementById("grid");
-const catTitle = document.getElementById("catTitle");
-const empty = document.getElementById("empty");
-const searchInput = document.getElementById("searchInput");
-const count = document.getElementById("count");
-let activeCat = "sale";
-
-// Tags par recette (viande, poisson, végé, vegan)
-const TAGS = {
-  assassina: ["végé"],
-  nobu: ["poisson"],
-  "patates-balls": ["végé"],
-  "tarte-oignons": ["végé"],
-  noodles: ["végé"],
-  "poulet-coreen": ["viande"],
-  ramen: ["viande"],
-  "ajo-blanco": ["vegan"],
-  spritz: ["végé"],
-  "chia-tiramisu": ["végé"],
-  "sorbet-fraise": ["vegan"],
-  cookies: ["végé"],
-  verrines: ["végé"],
-  "pate-magique": ["végé"]
-};
-function tagsHTML(r) {
-  return `<div class="card-tags">${(TAGS[r.id] || []).map(t =>
-    `<span class="tag-pill pill-${t === "végé" ? "vege" : t}">${t}</span>`).join("")}</div>`;
-}
-
-function cardHTML(r) {
-  return `
-    <article class="card" data-id="${r.id}" tabindex="0" role="button" aria-label="Ouvrir la recette ${r.name}">
-      <div class="card-body">
-        ${tagsHTML(r)}
-        <h3>${r.name}</h3>
-        <p class="desc">${r.desc}</p>
-        <div class="meta">
+  
+  function cardHTML(r) {
+    return `
+      <article class="card" data-id="${r.id}" tabindex="0" role="button" aria-label="Ouvrir la recette ${r.name}">
+        <div class="card-body">
+          ${tagsHTML(r)}
+          <h3>${r.name}</h3>
+          <p class="desc">${r.desc}</p>
+          <div class="meta">
+            <span class="chip">⏱ ${r.time}</span>
+            <span class="chip">🍽 ${r.parts}</span>
+          </div>
+        </div>
+      </article>`;
+  }
+  
+  function render() {
+    const q = searchInput.value.trim().toLowerCase();
+    const list = RECETTES.filter(r => {
+      const okCat = r.cat === activeCat;
+      const text = (r.name + " " + r.desc + " " + r.origin + " " + r.ingredients.join(" ")).toLowerCase();
+      return okCat && text.includes(q);
+    });
+    catTitle.textContent = CATS[activeCat].label;
+    grid.innerHTML = list.map(cardHTML).join("");
+    count.textContent = list.length + (list.length > 1 ? " recettes" : " recette");
+    if (!list.length) {
+      empty.style.display = "block";
+      empty.textContent = q
+        ? "Aucune recette ne correspond à ta recherche 😕"
+        : "Pas encore de recette ici — la section arrive bientôt 🌱";
+    } else {
+      empty.style.display = "none";
+    }
+  }
+  
+  // Filtres
+  document.querySelectorAll(".tab").forEach(tab => {
+    tab.addEventListener("click", () => {
+      document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
+      activeCat = tab.dataset.cat;
+      render();
+    });
+  });
+  searchInput.addEventListener("input", render);
+  
+  // Modale
+  const overlay = document.getElementById("overlay");
+  const modal = document.getElementById("modal");
+  
+  function openRecipe(id) {
+    const r = RECETTES.find(x => x.id === id);
+    if (!r) return;
+    modal.innerHTML = `
+      <div class="modal-head ${r.cat}">
+        <button class="close" aria-label="Fermer">✕</button>
+        <h2>${r.name}</h2>
+        <div class="origin">${r.origin}</div>
+        <div class="modal-meta">
           <span class="chip">⏱ ${r.time}</span>
           <span class="chip">🍽 ${r.parts}</span>
+          <span class="chip">${CATS[r.cat].chipLabel}</span>
+          ${(TAGS[r.id] || []).map(t => `<span class="tag-pill pill-${t === "végé" ? "vege" : t}">${t}</span>`).join("")}
         </div>
       </div>
-    </article>`;
-}
-
-function render() {
-  const q = searchInput.value.trim().toLowerCase();
-  const list = RECETTES.filter(r => {
-    const okCat = r.cat === activeCat;
-    const text = (r.name + " " + r.desc + " " + r.origin + " " + r.ingredients.join(" ")).toLowerCase();
-    return okCat && text.includes(q);
-  });
-  catTitle.textContent = CATS[activeCat].label;
-  grid.innerHTML = list.map(cardHTML).join("");
-  count.textContent = list.length + (list.length > 1 ? " recettes" : " recette");
-  if (!list.length) {
-    empty.style.display = "block";
-    empty.textContent = q
-      ? "Aucune recette ne correspond à ta recherche 😕"
-      : "Pas encore de recette ici — la section arrive bientôt 🌱";
-  } else {
-    empty.style.display = "none";
+      <div class="modal-body">
+        <div>
+          <h3>Ingrédients</h3>
+          <ul class="ingredients">
+            ${r.ingredients.map(i => `<li><span class="box">✓</span><span>${i}</span></li>`).join("")}
+          </ul>
+        </div>
+        <div>
+          <h3>Préparation</h3>
+          <ol class="steps">
+            ${r.steps.map(s => `<li>${s}</li>`).join("")}
+          </ol>
+          ${r.tip ? `<div class="tip"><strong>Le truc en plus :</strong> ${r.tip}</div>` : ""}
+        </div>
+      </div>`;
+    overlay.classList.add("open");
+    document.body.style.overflow = "hidden";
+    modal.querySelector(".close").addEventListener("click", closeRecipe);
+    modal.querySelectorAll("ul.ingredients li").forEach(li => {
+      li.addEventListener("click", () => li.classList.toggle("done"));
+    });
   }
-}
-
-// Filtres
-document.querySelectorAll(".tab").forEach(tab => {
-  tab.addEventListener("click", () => {
-    document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
-    tab.classList.add("active");
-    activeCat = tab.dataset.cat;
-    render();
-  });
-});
-searchInput.addEventListener("input", render);
-
-// Modale
-const overlay = document.getElementById("overlay");
-const modal = document.getElementById("modal");
-
-function openRecipe(id) {
-  const r = RECETTES.find(x => x.id === id);
-  if (!r) return;
-  modal.innerHTML = `
-    <div class="modal-head ${r.cat}">
-      <button class="close" aria-label="Fermer">✕</button>
-      <h2>${r.name}</h2>
-      <div class="origin">${r.origin}</div>
-      <div class="modal-meta">
-        <span class="chip">⏱ ${r.time}</span>
-        <span class="chip">🍽 ${r.parts}</span>
-        <span class="chip">${CATS[r.cat].chipLabel}</span>
-        ${(TAGS[r.id] || []).map(t => `<span class="tag-pill pill-${t === "végé" ? "vege" : t}">${t}</span>`).join("")}
-      </div>
-    </div>
-    <div class="modal-body">
-      <div>
-        <h3>Ingrédients</h3>
-        <ul class="ingredients">
-          ${r.ingredients.map(i => `<li><span class="box">✓</span><span>${i}</span></li>`).join("")}
-        </ul>
-      </div>
-      <div>
-        <h3>Préparation</h3>
-        <ol class="steps">
-          ${r.steps.map(s => `<li>${s}</li>`).join("")}
-        </ol>
-        ${r.tip ? `<div class="tip"><strong>Le truc en plus :</strong> ${r.tip}</div>` : ""}
-      </div>
-    </div>`;
-  overlay.classList.add("open");
-  document.body.style.overflow = "hidden";
-  modal.querySelector(".close").addEventListener("click", closeRecipe);
-  modal.querySelectorAll("ul.ingredients li").forEach(li => {
-    li.addEventListener("click", () => li.classList.toggle("done"));
-  });
-}
-function closeRecipe() {
-  overlay.classList.remove("open");
-  document.body.style.overflow = "";
-}
-overlay.addEventListener("click", e => { if (e.target === overlay) closeRecipe(); });
-document.addEventListener("keydown", e => { if (e.key === "Escape") closeRecipe(); });
-
-// Clic sur les cartes (délégation)
-grid.addEventListener("click", e => {
-  const card = e.target.closest(".card");
-  if (card) openRecipe(card.dataset.id);
-});
-grid.addEventListener("keydown", e => {
-  if (e.key === "Enter" || e.key === " ") {
+  function closeRecipe() {
+    overlay.classList.remove("open");
+    document.body.style.overflow = "";
+  }
+  overlay.addEventListener("click", e => { if (e.target === overlay) closeRecipe(); });
+  document.addEventListener("keydown", e => { if (e.key === "Escape") closeRecipe(); });
+  
+  // Clic sur les cartes (délégation)
+  grid.addEventListener("click", e => {
     const card = e.target.closest(".card");
-    if (card) { e.preventDefault(); openRecipe(card.dataset.id); }
-  }
-});
-
-render();
-</script>
-</body>
+    if (card) openRecipe(card.dataset.id);
+  });
+  grid.addEventListener("keydown", e => {
+    if (e.key === "Enter" || e.key === " ") {
+      const card = e.target.closest(".card");
+      if (card) { e.preventDefault(); openRecipe(card.dataset.id); }
+    }
+  });
+  
+  render();
+  </script>
+  </body>
 </html>
 
