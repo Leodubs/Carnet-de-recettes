@@ -150,7 +150,7 @@
     .card .desc { font-size: .8rem; }
     .tab { padding: 9px 18px; font-size: .88rem; }
     .toolbar { padding: 12px; }
-    .tagbtn { width: 75%; }
+    .tagbtn { width: 50%; }
   }
   .card {
     background: var(--card);
