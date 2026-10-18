@@ -19,9 +19,9 @@
   
   <div class="toolbar">
     <div class="tabs">
+      <button class="tab" data-cat="sansgluten">🌾 Sans gluten</button>
       <button class="tab active" data-cat="sale">🧂 Salé</button>
       <button class="tab" data-cat="sucre">🍰 Sucré</button>
-      <button class="tab" data-cat="sansgluten">🌾 Sans gluten</button>
     </div>
     <div class="tagfilters" id="tagfilters">
       <button class="tagbtn" data-tag="viande">🥩 Viande</button>
@@ -69,7 +69,7 @@
   const RECETTES = [
     // ---------------- SALÉ ----------------
     {
-      id: "poulet-morilles-cognac", cat: "sale", cat: "sansgluten", emoji: "🍄​", name: "Poulet aux morilles et Cognac",
+      id: "poulet-morilles-cognac", cat: "sansgluten", emoji: "🍄​", name: "Poulet aux morilles et Cognac",
       time: "50 min", parts: "4 pers.", origin: "TradiDuffy & la Cuisine de ma mère",
       desc: "Un plat délicieux et facile à préparer, parfait pour les repas de famille. Saveurs riches et texture tendre du poulet, sans gluten, qui peut convenir en version VG en remplaçant le poulet par des légumes.",
       ingredients: [
@@ -112,7 +112,7 @@
       tip: "Ne pas avoir peur du croustillant : une légère carbonnade en fond de poêle est recherchée, c'est elle qui donne tout le goût."
     },
     {
-      id: "nobu", cat: "sale", emoji: "🐟", name: "Poisson façon Nobu",
+      id: "nobu", cat: "sansgluten", emoji: "🐟", name: "Poisson façon Nobu",
       time: "18 min + marinade", parts: "2 pers.", origin: "La recette culte du chef Nobu",
       desc: "Dos de cabillaud (ou saumon) laqué dans une marinade miso-mirin, caramélisé au four. Un concentré d'umami.",
       ingredients: [
@@ -168,7 +168,7 @@
       tip: "Les oignons peuvent être caramélisés la veille : la tarte n'en sera que plus rapide à assembler."
     },
     {
-      id: "noodles", cat: "sale", emoji: "🍜", name: "Noodles en 10 minutes",
+      id: "noodles", cat: "sansgluten", emoji: "🍜", name: "Noodles en 10 minutes",
       time: "10 min", parts: "2 pers.", origin: "Le dîner express de la semaine",
       desc: "Nouilles sautées façon asiatique, sauce soja-sésame-miel, œuf coulant et cacahuètes. Plus vite que la livraison.",
       ingredients: [
@@ -205,7 +205,7 @@
       tip: "Pas de gochujang ? Un mélange sauce sriracha + miel + pointe de vinaigre de riz s'en approche très bien."
     },
     {
-      id: "ramen", cat: "sale", emoji: "🍲", name: "Spicy chicken ramen",
+      id: "ramen", cat: "sansgluten", emoji: "🍲", name: "Spicy chicken ramen",
       time: "20 min", parts: "2 pers.", origin: "Le bol réconfort version maison",
       desc: "Un bouillon épicé au poulet doré, œuf mollet, maïs et ciboule. Le ramen du dimanche soir, sans heures de cuisson.",
       ingredients: [
@@ -224,7 +224,7 @@
       tip: "Le secret d'un œuf mollet parfait : œufs à température ambiante, 6 min 30 de cuisson, choc thermique immédiat."
     },
     {
-      id: "ajo-blanco", cat: "sale", emoji: "🥣", name: "Ajo blanco (soupe froide de Malaga)",
+      id: "ajo-blanco", cat: "sansgluten", emoji: "🥣", name: "Ajo blanco (soupe froide de Malaga)",
       time: "10 min + repos", parts: "4 pers.", origin: "Le velouté glacé de Malaga, Espagne",
       desc: "Velouté glacé d'amandes, ail, pain rassis et huile d'olive, servi avec raisins muscat et filet de miel.",
       ingredients: [
@@ -242,7 +242,7 @@
       tip: "L'ail blanchi 30 secondes dans l'eau bouillante garde tout son parfum sans piquer : indispensable si on sert des invités."
     },
     {
-  id: "ramen-misa", cat: "sale", name: "Ramen maison ultra gourmand",
+  id: "ramen-misa", cat: "sansgluten", name: "Ramen maison ultra gourmand",
   time: "35 min", parts: "2 pers.", origin: "Vu chez @chezmisa",
   desc: "Bouillon riche au miso et gingembre, nouilles fondantes, œuf parfaitement coulant et bœuf doré. Le réconfort dans un bol.",
   ingredients: [
@@ -324,7 +324,7 @@
     tip: "L'étape congélateur est indispensable : elle permet de paner sans que la burrata ne s'effondre."
   },
   {
-    id: "mousse-avocat", cat: "sale", name: "Mousse d'avocat",
+    id: "mousse-avocat", cat: "sansgluten", name: "Mousse d'avocat",
     time: "10 min", parts: "4 pers.", origin: "Vu chez @not_so_superflu",
     desc: "La mousse d'avocat qui se marie avec tout : apéros, crudités, saumon fumé, œufs durs ou tartines.",
     ingredients: [
@@ -366,7 +366,7 @@
     tip: "La règle d'or du one-pot : le liquide doit affleurer les pâtes, pas plus. Les feuilles de lasagne fraîches cuisent plus vite que les sèches."
   },
   {
-    id: "gratin-brocoli-comte", cat: "sale", name: "Gratin brocoli, Comté, butter beans & noix",
+    id: "gratin-brocoli-comte", cat: "sansgluten", name: "Gratin brocoli, Comté, butter beans & noix",
     time: "45 min", parts: "4-6 pers.", origin: "Inspiré de @boroughchef",
     desc: "Le comfort food optimal : brocoli, Comté fruité, butter beans fondantes et noix grillées, gratinés au four. À servir avec une grosse salade.",
     ingredients: [
@@ -581,7 +581,6 @@
     "cookies": ["vegan"],
     "verrines": ["végé"],
     "pate-magique": ["végé"],
-    "ramen-misa": ["viande"]
   };
   
   // ---------- Rendu ----------
