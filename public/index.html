@@ -69,6 +69,31 @@
   const RECETTES = [
     // ---------------- SALÉ ----------------
     {
+      id: "poulet-morilles-cognac", cat: "sale", emoji: "🍄​", name: "Poulet aux morilles et Cognac",
+      time: "50 min", parts: "4 pers.", origin: "TradiDuffy & la Cuisine de ma mère",
+      desc: "Cette recette de poulet flambe au cognac aux morilles et vin blanc est un plat délicieux et facile à préparer. Elle est parfaite pour les repas en famille ou les occasions spéciales. Les saveurs riches et la texture tendre du poulet en font un plat très apprécié. De plus, cette recette peut être adaptée pour les végétariens en remplaçant le poulet par des légumes et en utilisant du bouillon de légumes à la place du bouillon de poulet. Elle convient également aux personnes suivant un régime sans gluten ou sans lactose. Pour une meilleure conservation, il est recommandé de préparer le plat le jour même et de le conserver au réfrigérateur.",
+      ingredients: [
+        "4 filets de poulet",
+        "2 cuillères à soupe de beurre",
+        "1 échalote émincée",
+        "1 gousse d’ail émincée",
+        "1 tasse de morilles fraîches ou séchées",
+        "1/4 tasse de cognac",
+        "1/4 tasse de vin blanc",
+        "1/2 tasse du bouillon des morilles",
+        "Petites patates à rôtir",
+        "Sel et poivre au goût"
+      ],
+      steps: [
+        "Dans une poêle, faire fondre le beurre à feu moyen. Ajouter les filets de poulet et les faire cuire jusqu’à ce qu’ils soient dorés de chaque côté. Retirer le poulet de la poêle et le réserver sur une assiette.",
+        "Dans la même poêle, ajouter l’échalote et l’ail et les faire revenir jusqu’à ce qu’ils soient tendres. Ajouter les morilles et les faire cuire pendant quelques minutes. Verser le cognac dans la poêle et flamber le tout en inclinant légèrement la poêle vers la flamme.",
+        "Ajouter le vin blanc et le bouillon de poulet dans la poêle et laisser mijoter pendant 5 minutes.",
+        "Remettre les filets de poulet dans la poêle et les laisser cuire pendant 10 minutes, en les retournant à mi-cuisson.",
+        "Assaisonner avec du sel et du poivre selon votre goût et servir le poulet avec la sauce aux morilles et au Cognac. Accompagner de petites patates rôties"
+      ],
+      tip: "Préparer le jour même et conserver au réfrigérateur dans un contenant hermétique. Elle peut être réchauffée au four à 180° pendant 10 minutes."
+    },  
+    {
       id: "assassina", cat: "sale", emoji: "🍝", name: "Spaghetti all'assassina",
       time: "25 min", parts: "2 pers.", origin: "La « petite tuerie » de Bari",
       desc: "Des spaghetti mi-cuits dans un bouillon de tomate, volontairement un peu cramés : croustillants, corsés, cultissimes.",
@@ -532,13 +557,14 @@
   
   // 🏷 TAGS PAR RECETTE — valeurs possibles : "viande", "poisson", "végé", "vegan"
   const TAGS = {
-    assassina: ["végé"],
-    nobu: ["poisson"],
+    "poulet-morilles-cognac": ["viande"],
+    "assassina": ["végé"],
+    "nobu": ["poisson"],
     "patates-balls": ["végé"],
     "tarte-oignons": ["végé"],
-    noodles: ["végé"],
+    "noodles": ["végé"],
     "poulet-coreen": ["viande"],
-    ramen: ["viande"],
+    "ramen": ["viande"],
     "ramen-misa": ["viande"],
     "carbonara-ail-confit": ["viande"],
     "rice-paper-dumplings": ["vegan"],
@@ -548,12 +574,12 @@
     "gratin-brocoli-comte": ["végé"],
     "sushi-dot-cake": ["poisson"],
     "ajo-blanco": ["vegan"],
-    spritz: ["végé"],
+    "spritz": ["végé"],
     "chia-tiramisu": ["végé"],
     "sorbet-fraise": ["végé"],
     "nice-cream": ["vegan"],
-    cookies: ["vegan"],
-    verrines: ["végé"],
+    "cookies": ["vegan"],
+    "verrines": ["végé"],
     "pate-magique": ["végé"],
     "ramen-misa": ["viande"]
   };
