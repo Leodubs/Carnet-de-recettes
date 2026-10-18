@@ -561,73 +561,72 @@
   
   // ---------- Rendu ----------
   const CATS = {
-    sale: { label: "Salé", chipLabel: "🧂 Partie salée" },
-    sucre: { label: "Sucré", chipLabel: "🍰 Partie sucrée" },
-    sansgluten: { label: "Sans gluten", chipLabel: "🌾 Sans gluten" }
-  };
-  const grid = document.getElementById("grid");
-  const catTitle = document.getElementById("catTitle");
-  const empty = document.getElementById("empty");
-  const searchInput = document.getElementById("searchInput");
-  const count = document.getElementById("count");
-  let activeCat = "sale";
-  let activeTag = null;
-  
-  function tagsHTML(r) {
-    return `<div class="card-tags">${(TAGS[r.id] || []).map(t =>
-      `<span class="tag-pill pill-${t === "végé" ? "vege" : t}">${t}</span>`).join("")}</div>`;
-  }
-  
-  function cardHTML(r) {
-    return `
-      <article class="card" data-id="${r.id}" tabindex="0" role="button" aria-label="Ouvrir la recette ${r.name}">
-        <div class="card-body">
-          ${tagsHTML(r)}
-          <h3>${r.name}</h3>
-          <p class="desc">${r.desc}</p>
-          <div class="meta">
-            <span class="chip">⏱ ${r.time}</span>
-            <span class="chip">🍽 ${r.parts}</span>
-          </div>
-        </div>
-      </article>`;
-  }
-  
-  function render() {
-    const q = searchInput.value.trim().toLowerCase();
-    const list = RECETTES.filter(r => {
-      const okCat = r.cat === activeCat;
-      const okTag = !activeTag || (TAGS[r.id] || []).includes(activeTag);
-      const text = (r.name + " " + r.desc + " " + r.origin + " " + r.ingredients.join(" ")).toLowerCase();
-      return okCat && okTag && text.includes(q);    
-    });
-    catTitle.textContent = CATS[activeCat].label;
-    grid.innerHTML = list.map(cardHTML).join("");
-    count.textContent = list.length + (list.length > 1 ? " recettes" : " recette");
-    if (!list.length) {
-      empty.style.display = "block";
-      empty.textContent = q
-        ? "Aucune recette ne correspond à ta recherche 😕"
-        : "Pas encore de recette ici — la section arrive bientôt 🌱";
-    } else {
-      empty.style.display = "none";
-    }
-  }
-  
-  // Filtres
-  document.getElementById("tagfilters").style.display = activeCat === "sale" ? "flex" : "none";
-  document.querySelectorAll(".tab").forEach(tab => {
-    tab.addEventListener("click", () => {
-      document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
-      tab.classList.add("active");
-      activeCat = tab.dataset.cat;
-      render();
-    });
-  });
-  searchInput.addEventListener("input", render);
+  sale: { label: "Salé", chipLabel: "🧂 Partie salée" },
+  sucre: { label: "Sucré", chipLabel: "🍰 Partie sucrée" },
+  sansgluten: { label: "Sans gluten", chipLabel: "🌾 Sans gluten" }
+};
+const grid = document.getElementById("grid");
+const catTitle = document.getElementById("catTitle");
+const empty = document.getElementById("empty");
+const searchInput = document.getElementById("searchInput");
+const count = document.getElementById("count");
+let activeCat = "sale";
+let activeTag = null;
 
-  // Gestionnaire de tags
-  document.querySelectorAll(".tagbtn").forEach(btn => {
+function tagsHTML(r) {
+  return `<div class="card-tags">${(TAGS[r.id] || []).map(t =>
+    `<span class="tag-pill pill-${t === "végé" ? "vege" : t}">${t}</span>`).join("")}</div>`;
+}
+
+function cardHTML(r) {
+  return `
+    <article class="card" data-id="${r.id}" tabindex="0" role="button" aria-label="Ouvrir la recette ${r.name}">
+      <div class="card-body">
+        ${tagsHTML(r)}
+        <h3>${r.name}</h3>
+        <p class="desc">${r.desc}</p>
+        <div class="meta">
+          <span class="chip">⏱ ${r.time}</span>
+          <span class="chip">🍽 ${r.parts}</span>
+        </div>
+      </div>
+    </article>`;
+}
+
+function render() {
+  const q = searchInput.value.trim().toLowerCase();
+  const list = RECETTES.filter(r => {
+    const okCat = r.cat === activeCat;
+    const okTag = !activeTag || (TAGS[r.id] || []).includes(activeTag);
+    const text = (r.name + " " + r.desc + " " + r.origin + " " + r.ingredients.join(" ")).toLowerCase();
+    return okCat && okTag && text.includes(q);
+  });
+  document.getElementById("tagfilters").style.display = activeCat === "sale" ? "flex" : "none";
+  catTitle.textContent = CATS[activeCat].label;
+  grid.innerHTML = list.map(cardHTML).join("");
+  count.textContent = list.length + (list.length > 1 ? " recettes" : " recette");
+  if (!list.length) {
+    empty.style.display = "block";
+    empty.textContent = q
+      ? "Aucune recette ne correspond à ta recherche 😕"
+      : "Pas encore de recette ici — la section arrive bientôt 🌱";
+  } else {
+    empty.style.display = "none";
+  }
+}
+
+// Filtres
+document.querySelectorAll(".tab").forEach(tab => {
+  tab.addEventListener("click", () => {
+    document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+    tab.classList.add("active");
+    activeCat = tab.dataset.cat;
+    activeTag = null;
+    document.querySelectorAll(".tagbtn").forEach(b => b.classList.remove("active"));
+    render();
+  });
+});
+document.querySelectorAll(".tagbtn").forEach(btn => {
   btn.addEventListener("click", () => {
     activeTag = activeTag === btn.dataset.tag ? null : btn.dataset.tag;
     document.querySelectorAll(".tagbtn").forEach(b =>
@@ -635,71 +634,69 @@
     render();
   });
 });
-  
-  // Modale
-  const overlay = document.getElementById("overlay");
-  const modal = document.getElementById("modal");
-  
-  function openRecipe(id) {
-    const r = RECETTES.find(x => x.id === id);
-    if (!r) return;
-    modal.innerHTML = `
-      <div class="modal-head ${r.cat}">
-        <button class="close" aria-label="Fermer">✕</button>
-        <h2>${r.name}</h2>
-        <div class="origin">${r.origin}</div>
-        <div class="modal-meta">
-          <span class="chip">⏱ ${r.time}</span>
-          <span class="chip">🍽 ${r.parts}</span>
-          <span class="chip">${CATS[r.cat].chipLabel}</span>
-          ${(TAGS[r.id] || []).map(t => `<span class="tag-pill pill-${t === "végé" ? "vege" : t}">${t}</span>`).join("")}
-        </div>
+searchInput.addEventListener("input", render);
+
+// Modale
+const overlay = document.getElementById("overlay");
+const modal = document.getElementById("modal");
+
+function openRecipe(id) {
+  const r = RECETTES.find(x => x.id === id);
+  if (!r) return;
+  modal.innerHTML = `
+    <div class="modal-head ${r.cat}">
+      <button class="close" aria-label="Fermer">✕</button>
+      <h2>${r.name}</h2>
+      <div class="origin">${r.origin}</div>
+      <div class="modal-meta">
+        <span class="chip">⏱ ${r.time}</span>
+        <span class="chip">🍽 ${r.parts}</span>
+        <span class="chip">${CATS[r.cat].chipLabel}</span>
+        ${(TAGS[r.id] || []).map(t => `<span class="tag-pill pill-${t === "végé" ? "vege" : t}">${t}</span>`).join("")}
       </div>
-      <div class="modal-body">
-        <div>
-          <h3>Ingrédients</h3>
-          <ul class="ingredients">
-            ${r.ingredients.map(i => `<li><span class="box">✓</span><span>${i}</span></li>`).join("")}
-          </ul>
-        </div>
-        <div>
-          <h3>Préparation</h3>
-          <ol class="steps">
-            ${r.steps.map(s => `<li>${s}</li>`).join("")}
-          </ol>
-          ${r.tip ? `<div class="tip"><strong>Le truc en plus :</strong> ${r.tip}</div>` : ""}
-        </div>
-      </div>`;
-    overlay.classList.add("open");
-    document.body.style.overflow = "hidden";
-    modal.querySelector(".close").addEventListener("click", closeRecipe);
-    modal.querySelectorAll("ul.ingredients li").forEach(li => {
-      li.addEventListener("click", () => li.classList.toggle("done"));
-    });
-  }
-  function closeRecipe() {
-    overlay.classList.remove("open");
-    document.body.style.overflow = "";
-  }
-  overlay.addEventListener("click", e => { if (e.target === overlay) closeRecipe(); });
-  document.addEventListener("keydown", e => { if (e.key === "Escape") closeRecipe(); });
-  
-  // Clic sur les cartes (délégation)
-  grid.addEventListener("click", e => {
+    </div>
+    <div class="modal-body">
+      <div>
+        <h3>Ingrédients</h3>
+        <ul class="ingredients">
+          ${r.ingredients.map(i => `<li><span class="box">✓</span><span>${i}</span></li>`).join("")}
+        </ul>
+      </div>
+      <div>
+        <h3>Préparation</h3>
+        <ol class="steps">
+          ${r.steps.map(s => `<li>${s}</li>`).join("")}
+        </ol>
+        ${r.tip ? `<div class="tip"><strong>Le truc en plus :</strong> ${r.tip}</div>` : ""}
+      </div>
+    </div>`;
+  overlay.classList.add("open");
+  document.body.style.overflow = "hidden";
+  modal.querySelector(".close").addEventListener("click", closeRecipe);
+  modal.querySelectorAll("ul.ingredients li").forEach(li => {
+    li.addEventListener("click", () => li.classList.toggle("done"));
+  });
+}
+function closeRecipe() {
+  overlay.classList.remove("open");
+  document.body.style.overflow = "";
+}
+overlay.addEventListener("click", e => { if (e.target === overlay) closeRecipe(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeRecipe(); });
+
+// Clic sur les cartes (délégation)
+grid.addEventListener("click", e => {
+  const card = e.target.closest(".card");
+  if (card) openRecipe(card.dataset.id);
+});
+grid.addEventListener("keydown", e => {
+  if (e.key === "Enter" || e.key === " ") {
     const card = e.target.closest(".card");
-    if (card) openRecipe(card.dataset.id);
-  });
-  grid.addEventListener("keydown", e => {
-    if (e.key === "Enter" || e.key === " ") {
-      const card = e.target.closest(".card");
-      if (card) { e.preventDefault(); openRecipe(card.dataset.id); }
-    }
-  });
-  // Réiniatialisation des clics
-  activeTag = null;
-  document.querySelectorAll(".tagbtn").forEach(b => b.classList.remove("active"));
-  
-  render();
+    if (card) { e.preventDefault(); openRecipe(card.dataset.id); }
+  }
+});
+
+render();
   </script>
   </body>
 </html>
