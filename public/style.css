@@ -33,6 +33,11 @@ letter-spacing: -0.03em;
 line-height: 1.1;
 }
 header h1 .dot { color: #ff467a; }
+header .search {
+    margin: 28px auto 0;
+    max-width: 420px;
+    width: 100%;
+  }
 
 /* ---------- Toolbar ---------- */
 .toolbar {
@@ -66,6 +71,21 @@ transition: all .18s ease;
 .tab.active[data-cat="sale"] { background: var(--sale); border-color: var(--sale); color: #ffd51e; }
 .tab.active[data-cat="sucre"] { background: var(--sucre); border-color: var(--sucre); color: #fff; }
 .tab.active[data-cat="sansgluten"] { background: var(--gluten); border-color: var(--gluten); color: #5003c0; }
+.tagfilters { display: none; gap: 8px; flex-wrap: wrap; justify-content: center; width: 100%; }
+.tagbtn {
+  border: 1.5px solid var(--line);
+  background: var(--card);
+  color: var(--ink);
+  padding: 5px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: .8rem;
+  font-weight: 700;
+  font-family: inherit;
+  transition: all .18s ease;
+}
+.tagbtn:hover { border-color: var(--ink); }
+.tagbtn.active { background: var(--ink); color: #fff2ef; border-color: var(--ink); }
 .search {
 display: flex;
 align-items: center;
@@ -285,3 +305,16 @@ font-size: .85rem;
 }
 footer a { color: var(--ink-soft); text-decoration: none; font-weight: 600; }
 footer a:hover { color: var(--ink); text-decoration: underline; }
+
+/* ---------- Mobile : 2 colonnes max ---------- */
+@media (max-width: 820px) {
+    .grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    main { padding: 24px 14px 10px; }
+    header { padding: 44px 16px 22px; }
+    header .search { margin-top: 20px; }
+    .card-body { padding: 13px 14px 15px; }
+    .card h3 { font-size: .98rem; }
+    .card .desc { font-size: .8rem; }
+    .tab { padding: 9px 18px; font-size: .88rem; }
+    .toolbar { padding: 12px; }
+  }

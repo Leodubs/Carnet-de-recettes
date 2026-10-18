@@ -11,6 +11,10 @@
 
   <header>
     <h1>Carnet de recettes<span class="dot">.</span></h1>
+    <label class="search">
+      <span aria-hidden="true">🔎</span>
+      <input id="searchInput" type="text" placeholder="Mon envie du moment" />
+    </label>
   </header>
   
   <div class="toolbar">
@@ -19,11 +23,14 @@
       <button class="tab" data-cat="sucre">🍰 Sucré</button>
       <button class="tab" data-cat="sansgluten">🌾 Sans gluten</button>
     </div>
-    <label class="search">
-      <span aria-hidden="true">🔎</span>
-      <input id="searchInput" type="text" placeholder="Rechercher une recette, un ingrédient…" />
-    </label>
     <div class="count" id="count"></div>
+  </div>
+
+  <div class="tagfilters" id="tagfilters">
+    <button class="tagbtn" data-tag="viande">🥩 Viande</button>
+    <button class="tagbtn" data-tag="poisson">🐟 Poisson</button>
+    <button class="tagbtn" data-tag="végé">🌱 Végé</button>
+    <button class="tagbtn" data-tag="vegan">🌿 Vegan</button>
   </div>
   
   <main>
@@ -425,40 +432,66 @@
       tip: "Pour un tiramisu encore plus café : badigeonner le pudding de chia d'un trait de café avant d'ajouter la couche mascarpone."
     },
     {
-      id: "sorbet-fraise", cat: "sucre", emoji: "🍓", name: "Sorbet fraise express",
-      time: "5 min + congélation", parts: "4 pers.", origin: "La fraise en version glacée",
-      desc: "Un sorbet maison sans sorbetière : fraises congelées, citron et sucre glace, mixé en 5 minutes.",
+      id: "sorbet-fraise", cat: "sucre", name: "Glace fraise express",
+      time: "5 min avec congélation des fruits au préalable", parts: "4 pers.", origin: "La fraise en version glacée",
+      desc: "Une glace maison sans sorbetière : fraises congelées mixées avec du blanc d'œuf pour une texture onctueuse et mousseuse.",
       ingredients: [
-        "500 g de fraises congelées", "Le jus d'un demi-citron", "70 g de sucre glace (à ajuster)",
-        "1 pincée de sel", "Quelques feuilles de basilic ou menthe (facultatif)"
+        "500 g de fraises congelées", "70 g de sucre (à ajuster)",
+        "1 blanc d'œuf (frais, à température ambiante)",
+        "Quelques feuilles de basilic ou menthe (facultatif)"
       ],
       steps: [
         "Sortir les fraises du congélateur 5 minutes avant pour qu'elles s'assouplissent à peine.",
-        "Mixer les fraises avec le jus de citron, le sucre glace et la pincée de sel, par pulsations, jusqu'à une consistance crémeuse.",
-        "Racler les parois et mixer de nouveau : la texture doit être celle d'une glace molle, immédiatement lisse.",
-        "Déguster tel quel (texture « soft ») ou transférer au congélateur 2 heures dans un bac hermétique pour un sorbet plus ferme.",
+        "Mixer les fraises avec le sucre, par pulsations, jusqu'à obtenir une consistance crémeuse.",
+        "Ajouter le blanc d'œuf et mixer de nouveau 30 secondes : la préparation éclaircit et double légèrement de volume, texture mousseuse.",
+        "Racler les parois et mixer une dernière fois : la glace doit être immédiatement lisse et souple.",
+        "Déguster tel quel (texture « soft ») ou transférer au congélateur 2 heures dans un bac hermétique pour une glace plus ferme.",
         "Servir en coupelles avec une feuille de basilic ou de menthe."
       ],
-      tip: "La même méthode marche avec mangue, ananas ou framboises congelées : une base à décliner toute l'année."
+      tip: "Le blanc d'œuf apporte toute l'onctuosité — sans lui, la glace durcit en cristaux au congélateur. Version vegan : le remplacer par de l'aquafaba (jus de cuisson des pois chiches)."
     },
     {
-      id: "cookies", cat: "sucre", emoji: "🍫", name: "Cookies au chocolat",
-      time: "25 min + repos", parts: "12 cookies", origin: "Les cookies parfaits du feed",
-      desc: "Cœur fondant, bord croustillant, beurre noisette et fleur de sel. Le cookie qui fait fuir le régime.",
+      id: "nice-cream", cat: "sucre", name: "Nice cream banane & peanut butter",
+      time: "5 min avec congélation des fruits au préalable", parts: "2 pers.", origin: "La glace healthy à deux ingrédients",
+      desc: "La glace vegan magique : bananes congelées mixées au beurre de cacahuète, onctueuse comme une vraie glace — avec une goutte de cognac pour la touche gourmande.",
       ingredients: [
-        "120 g de beurre (fondu en noisette)", "90 g de sucre roux", "40 g de sucre semoule",
-        "1 œuf", "1 c. à c. de vanille liquide", "180 g de farine",
-        "1/2 c. à c. de levure chimique", "1 pincée de fleur de sel", "150 g de pépites de chocolat noir"
+        "3 bananes bien mûres, congelées en rondelles",
+        "2 c. à s. de beurre de cacahuète",
+        "1 c. à c. de vanille liquide (facultatif)",
+        "1 goutte de cognac (ou rhum, whisky — facultatif)",
+        "Cacahuètes concassées, pépites de chocolat (pour servir)"
       ],
       steps: [
-        "Faire fondre le beurre à feu doux jusqu'à ce qu'il embaume la noisette (2-3 minutes), laisser tiédir.",
-        "Mélanger le beurre avec les deux sucres, puis l'œuf et la vanille.",
-        "Ajouter la farine, la levure et le sel, puis les pépites. Pétrir juste assez pour homogénéiser.",
-        "Réfrigérer la pâte 30 minutes minimum : c'est ce qui concentre le goût et évite l'étalement.",
-        "Préchauffer le four à 180 °C. Former 12 boules, les espacer sur une plaque chemisée.",
-        "Cuire 10 à 12 minutes : le bord doit être doré, le centre encore clair et souple. Saler d'une pincée de fleur de sel à la sortie du four, laisser durcir 5 minutes sur la plaque."
+        "La veille (ou 4 h avant), éplucher les bananes, les couper en rondelles et les congeler à plat.",
+        "Mixer les rondelles congelées et le beurre de cacahuète par pulsations, en raclant régulièrement les parois.",
+        "Quand la préparation devient crémeuse et épaisse, ajouter la vanille et l'alcool, puis mixer 30 secondes de plus.",
+        "Déguster immédiatement (texture « soft ») ou congeler 1 à 2 heures dans un bac hermétique pour une glace plus ferme.",
+        "Servir avec des cacahuètes concassées et des pépites de chocolat."
       ],
-      tip: "Un cookie refroidi trop dur ? 10 secondes au micro-ondes et il redevient coulant comme à la sortie du four."
+      tip: "La goutte d'alcool n'est pas là que pour le goût : elle empêche la glace de cristalliser, elle reste donc souple même après un passage au congélateur. Sans alcool : un trait de lait de coco fait le même job."
+    },
+    {
+      id: "cookies", cat: "sucre", name: "Cookies pois chiches & butternut",
+      time: "30 min", parts: "12 cookies", origin: "Vu chez @marco.madewell",
+      desc: "Des cookies healthy sans farine ni beurre : pois chiches et butternut mixés, miel et vanille, pépites de chocolat. Moelleux et surprenants.",
+      ingredients: [
+        "240 g de pois chiches cuits (1 boîte, égouttés et rincés)",
+        "200 g de butternut cuit (vapeur ou au four)",
+        "80 g de miel",
+        "1 c. à c. de vanille liquide",
+        "1 c. à c. de baking powder (levure chimique)",
+        "1 pincée de sel",
+        "80 g de pépites de chocolat (ou noix, fruits secs, coco…)"
+      ],
+      steps: [
+        "Cuire le butternut à la vapeur jusqu'à ce qu'il soit tendre, laisser tiédir.",
+        "Égoutter et rincer soigneusement les pois chiches.",
+        "Mixer pois chiches, butternut, miel, vanille, baking powder et sel au bras mixeur jusqu'à obtenir une pâte lisse et homogène.",
+        "Incorporer les pépites de chocolat (ou l'ajout de votre choix) à la cuillère.",
+        "Préchauffer le four à 180 °C. Former 12 boules, les aplatir légèrement sur une plaque chemisée (la pâte ne s'étale pas comme une pâte classique).",
+        "Cuire 13 à 15 minutes : les cookies doivent rester moelleux au toucher, ils raffermissent en refroidissant."
+      ],
+      tip: "La recette originale de @marco.madewell se fait sans butternut, avec du beurre de cacahuète pour le liant : une variante à tester selon le placard. Version vegan : remplacer le miel par du sirop d'érable."
     },
     {
       id: "verrines", cat: "sucre", emoji: "🍮", name: "Desserts en pots (verrines chocolat)",
@@ -518,8 +551,9 @@
     "ajo-blanco": ["vegan"],
     spritz: ["végé"],
     "chia-tiramisu": ["végé"],
-    "sorbet-fraise": ["vegan"],
-    cookies: ["végé"],
+    "sorbet-fraise": ["végé"],
+    "nice-cream": ["vegan"],
+    cookies: ["vegan"],
     verrines: ["végé"],
     "pate-magique": ["végé"],
     "ramen-misa": ["viande"]
@@ -537,6 +571,7 @@
   const searchInput = document.getElementById("searchInput");
   const count = document.getElementById("count");
   let activeCat = "sale";
+  let activeTag = null;
   
   function tagsHTML(r) {
     return `<div class="card-tags">${(TAGS[r.id] || []).map(t =>
@@ -562,8 +597,9 @@
     const q = searchInput.value.trim().toLowerCase();
     const list = RECETTES.filter(r => {
       const okCat = r.cat === activeCat;
+      const okTag = !activeTag || (TAGS[r.id] || []).includes(activeTag);
       const text = (r.name + " " + r.desc + " " + r.origin + " " + r.ingredients.join(" ")).toLowerCase();
-      return okCat && text.includes(q);
+      return okCat && okTag && text.includes(q);    
     });
     catTitle.textContent = CATS[activeCat].label;
     grid.innerHTML = list.map(cardHTML).join("");
@@ -579,6 +615,7 @@
   }
   
   // Filtres
+  document.getElementById("tagfilters").style.display = activeCat === "sale" ? "flex" : "none";
   document.querySelectorAll(".tab").forEach(tab => {
     tab.addEventListener("click", () => {
       document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
@@ -588,6 +625,16 @@
     });
   });
   searchInput.addEventListener("input", render);
+
+  // Gestionnaire de tags
+  document.querySelectorAll(".tagbtn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    activeTag = activeTag === btn.dataset.tag ? null : btn.dataset.tag;
+    document.querySelectorAll(".tagbtn").forEach(b =>
+      b.classList.toggle("active", b.dataset.tag === activeTag));
+    render();
+  });
+});
   
   // Modale
   const overlay = document.getElementById("overlay");
@@ -648,6 +695,9 @@
       if (card) { e.preventDefault(); openRecipe(card.dataset.id); }
     }
   });
+  // Réiniatialisation des clics
+  activeTag = null;
+  document.querySelectorAll(".tagbtn").forEach(b => b.classList.remove("active"));
   
   render();
   </script>
