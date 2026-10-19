@@ -598,7 +598,8 @@
     "nice-cream": ["vegan"],
     "cookies": ["vegan"],
     "verrines": ["végé"],
-    "pate-magique": ["végé"],
+    "pate-beurre": ["végé"],
+    "pate-light": ["végé"],
   };
   
   // ---------- Rendu ----------
@@ -643,7 +644,7 @@ function render() {
     const text = (r.name + " " + r.desc + " " + r.origin + " " + r.ingredients.join(" ")).toLowerCase();
     return okCat && okTag && text.includes(q);
   });
-  document.getElementById("tagfilters").style.display = activeCat === "sale" ? "flex" : "none";
+  document.getElementById("tagfilters").style.display = activeCat === "sucre" ? "none" : "flex";
   catTitle.textContent = CATS[activeCat].label;
   grid.innerHTML = list.map(cardHTML).join("");
   count.textContent = list.length + (list.length > 1 ? " recettes" : " recette");
