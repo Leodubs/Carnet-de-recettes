@@ -1,3 +1,9 @@
+TypeError: (intermediate value).map is not a function dans tagsHTML. C'est un bug dans le code de rendu du site, pas dans les données :
+Ton TAGS associe chaque id à une chaîne : "vegan", "viande"…
+Mais tagsHTML, render et openRecipe traitent TAGS[r.id] comme un tableau : (TAGS[r.id] || []).map(...)
+Résultat : dès la première carte, .map est appelé sur une chaîne → plantage → render() s'arrête → sections vides. 
+
+
 Example plain HTML site using GitLab Pages.
 
 Learn more about GitLab Pages at https://pages.gitlab.io and the official
