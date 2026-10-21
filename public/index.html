@@ -59,7 +59,7 @@
 // render() trie par onglet (champ cat).
 // ============================================================
 
-    const TAGS = {
+const TAGS = {
   "poulet-morilles-cognac": "viande",
   "nice-cream": "vegan",
   "mini-tatins-de-poireau": "végé",
@@ -185,7 +185,7 @@
   "poulet-coreen-express": "viande",
   "spicy-chicken-ramen": "viande",
   "ramen-maison": "viande",
-  "tiramisu-chia": "végé",
+  "tiramisu-chia": "végé"
 };
 
 const RECETTES = [
@@ -215,7 +215,7 @@ const RECETTES = [
       ],
       tip: "Préparer le jour même et conserver au réfrigérateur dans un contenant hermétique. Elle peut être réchauffée au four à 180° pendant 10 minutes."
     },  
-    {
+  {
       id: "nice-cream", cat: "sucre", emoji: "🍦​​", name: "Nice cream banane & peanut butter",
       time: "5 min avec congélation des fruits au préalable", parts: "2 pers.", origin: "La glace healthy à deux ingrédients",
       desc: "La glace vegan magique : bananes congelées mixées au beurre de cacahuète, onctueuse comme une vraie glace — avec une goutte de cognac pour la touche gourmande.",
@@ -235,62 +235,54 @@ const RECETTES = [
       ],
       tip: "La goutte d'alcool n'est pas là que pour le goût : elle empêche la glace de cristalliser, elle reste donc souple même après un passage au congélateur. Sans alcool : un trait de lait de coco fait le même job."
     },
-// ---------------- RÉSEAUX ----------------    
-{id:"tiramisu-chia", cat:"sucre", name:"Tiramisu chia pudding protéiné", time:"5 min + 2 h au frais", parts:"2", origin:"@aurafigueroaa", desc:"Qui a dit que manger sainement signifiait faire ses adieux au dessert ? Celui-ci se prépare en 5 minutes, il est délicieux et combine deux priorités : protéines + fibres.", ingredients:["150 g de yaourt grec nature","2 c. à soupe de graines de chia","1 shot d'expresso (2 si tu l'aimes plus fort)","Stévia au goût","1 dose de protéine en poudre sans saveur (facultatif)","Cacao en poudre + café en poudre pour saupoudrer"], steps:["Mélanger le tout, verser dans un moule et réfrigérer au minimum 2 heures.","Démouler, saupoudrer de cacao et de café par-dessus et c'est prêt."], tip:"La chia apporte fibres, bonnes graisses et ALA (oméga-3 végétal). Macros avec protéine : ~320-340 kcal, dont 45-47 g de protéines."},
-{id:"ramen-maison", cat:"sansgluten", name:"Ramen maison ultra gourmand", time:"40 min", parts:"2", origin:"@chezmisa", desc:"Un bouillon riche et parfumé, des nouilles fondantes, un œuf parfaitement coulant… impossible d'y résister.", ingredients:["1 L de bouillon de volaille (ou de légumes)","2 gousses d'ail","1 morceau de gingembre frais","2 c. à soupe de sauce soja","1 c. à soupe de miso (facultatif mais recommandé)","1 c. à café d'huile de sésame","Flocons de piment (selon ton goût)","200 g de nouilles ramen (de riz pour du sans gluten)","150 g de bœuf haché (ou de porc)","2 œufs","Champignons (shiitakés ou pleurotes)","Pak choï ou épinards","Graines de sésame","Oignons verts émincés"], steps:["Bouillon : faire revenir l'ail et le gingembre râpé avec l'huile de sésame dans une casserole. Ajouter le bouillon, la sauce soja, le miso et les flocons de piment, puis laisser frémir à feu doux 15-20 minutes.","Œufs : les plonger 6 minutes dans l'eau bouillante, les refroidir aussitôt dans l'eau froide, les écaler délicatement et réserver.","Garnitures : faire revenir le bœuf haché dans une poêle jusqu'à ce qu'il soit bien doré, ajouter les champignons et laisser légèrement caraméliser.","Nouilles & légumes : cuire les nouilles selon les indications, ajouter le pak choï ou les épinards dans le bouillon les dernières minutes.","Dressage : disposer les nouilles dans un bol, verser le bouillon bien chaud, ajouter le bœuf, les légumes et l'œuf coupé en deux. Saupoudrer de sésame et d'oignons verts."], tip:"Plus crémeux : une cuillère de lait de coco. Plus épicé : un filet d'huile pimentée. Version veggie : remplacer la viande par du tofu croustillant."},
-{id:"spicy-chicken-ramen", cat:"sansgluten", name:"Spicy chicken rice noodle bowl", time:"20 min", parts:"2", origin:"@modernflavour", desc:"Le repas le plus réconfortant dans un bol : un bol de nouilles de riz façon ramen au poulet épicé, parfait pour la rotation des repas de la semaine.", ingredients:["4 tasses (1 L) de bouillon de poulet","2 gousses d'ail","1 c. à café de gingembre (en bocal)","1 c. à soupe de sauce soja","1 c. à café d'huile de sésame","1 c. à café de vinaigre de riz","1 c. à soupe de chili crisp","Quelques tours de moulin à poivre","2 hauts de cuisse de poulet cuits","100 g de nouilles de riz","2 œufs","Coriandre fraîche","Graines de sésame","1 citron vert"], steps:["Porter le bouillon de poulet à léger frémissement à feu moyen.","Ajouter l'ail et le gingembre, laisser frémir 5 minutes pour parfumer le bouillon.","Incorporer la sauce soja, l'huile de sésame, le vinaigre de riz, le chili crisp et quelques tours de poivre.","Ajouter les cuisses de poulet cuites et laisser cuire encore 3 à 4 minutes, jusqu'à ce qu'elles soient bien chaudes.","Pendant ce temps, cuire les nouilles de riz selon les indications du paquet, les égoutter et les répartir dans deux bols.","Porter une petite casserole d'eau à ébullition, y plonger délicatement les œufs et cuire 6 min 30 à 7 minutes pour des jaunes coulants. Les transférer aussitôt dans un bain d'eau glacée, les écaler et les couper en deux.","Répartir le bouillon chaud et le poulet sur les nouilles.","Garnir chaque bol d'un œuf mollet, de coriandre fraîche, de graines de sésame et d'un bon filet de citron vert avant de servir."]},
-{id:"poulet-coreen-express", cat:"sale", name:"Poulet à la coréenne express", time:"20 min", parts:"4", origin:"@mariegourmandise", desc:"Rapide, facile, ultra gourmande et validée par toute la famille : un poulet croustillant, des légumes fondants et une sauce sucrée-salée pleine de saveurs, à l'Air Fryer.", ingredients:["4 blancs de poulet","1 brocoli","250 g de mange-tout","250 g de carottes","5 c. à soupe d'huile de sésame","5 c. à soupe de sauce soja","1 c. à soupe de ketchup","1 c. à soupe de miel (ou sirop d'érable)","1 c. à café d'ail en poudre","2 c. à soupe de fécule de maïs","Graines de sésame (facultatif)"], steps:["Couper le poulet en dés et l'enrober de fécule de maïs.","Cuire le poulet en mode Air Fry à 180°C pendant 20 min en mélangeant à mi-cuisson (à défaut, au four ou à la poêle).","Découper les légumes en morceaux de taille similaire pour une cuisson homogène et les cuire à la vapeur 20 min en mélangeant à mi-cuisson.","Pendant ce temps, mélanger l'huile de sésame, la sauce soja, le miel, le ketchup et l'ail pour préparer la sauce.","Une fois le poulet bien croustillant, le mélanger avec la sauce pour bien l'enrober.","Servir avec du riz, des pommes de terre ou des nouilles de riz."]},
-{id:"verrines-chocolat", cat:"sucre", name:"Verrines pudding coco-chocolat", time:"10 min + 1 h au frais", parts:"2 à 3", origin:"@kilukrucrusine", desc:"Le dessert qui calme les envies de sucre, sans sucre raffiné. Crémeux, gourmand et riche en fibres grâce au gel de chia, pour un dessert qui rassasie durablement.", ingredients:["250 ml de gel de chia","200 ml de lait de coco","3 c. à soupe de noix de coco râpée","1 c. à café d'extrait de vanille (facultatif)","30 g de chocolat noir (70 % ou plus)","2 à 3 c. à soupe de lait de coco"], steps:["Mélanger le gel de chia, le lait de coco, la noix de coco râpée et la vanille jusqu'à obtenir une texture homogène.","Répartir dans des verrines et laisser reposer au réfrigérateur au moins 1 heure.","Faire fondre le chocolat avec le lait de coco jusqu'à obtenir une sauce bien lisse.","Verser la sauce sur le pudding juste avant de servir."], tip:"Le gel de chia se prépare à l'avance et se conserve jusqu'à 3 jours au réfrigérateur."},
   {
-    id: "gratin-brocoli-comte", cat: "sansgluten", name: "Gratin brocoli, Comté, butter beans & noix",
-    time: "45 min", parts: "4-6 pers.", origin: "Inspiré de @boroughchef",
-    desc: "Le comfort food optimal : brocoli, Comté fruité, butter beans fondantes et noix grillées, gratinés au four. À servir avec une grosse salade.",
-    ingredients: [
-      "2 brocoli",
-      "180 g de Comté râpé",
-      "400 g de butter beans (haricots cocos blancs, en bocal)",
-      "Une poignée de cerneaux de noix",
-      "20 cl de crème entière (ou une béchamel légère)",
-      "1 gousse d'ail", "Noix de muscade", "Sel, poivre", "Chapelure (facultatif)"
-    ],
-    steps: [
-      "Cuire les brocoli séparés en bouquets 5 à 6 minutes à la vapeur : ils doivent rester fermes.",
-      "Égoutter et rincer les butter beans.",
-      "Frotter le plat à gratin avec la gousse d'ail, puis y disposer brocoli et butter beans.",
-      "Napper de crème (ou béchamel) assaisonnée de muscade, sel et poivre.",
-      "Couvrir de Comté râpé, parsemer de noix concassées (et d'un peu de chapelure pour un gratin plus croustillant).",
-      "Cuire 20 à 25 minutes à 190 °C, jusqu'à ce que le dessus soit doré et bouillonnant.",
-      "Laisser reposer 5 minutes et servir avec une grosse salade."
-    ],
-    tip: "Les noix grillées 5 minutes au four avant d'être parsemées libèrent beaucoup plus de parfum."
-  },
-{id:"sushi-dot-cake", cat:"sale", name:"Sushi dot cake", time:"30 min", parts:"4 à 6", origin:"@not_so_superflu", desc:"La recette trend du sushi dot cake : ultra facile à faire, rapide et surtout trop bon. On commence par un riz à sushi parfaitement assaisonné.", ingredients:["3 petits verres de riz à sushi","4 petits verres d'eau (le même verre)","4 c. à soupe de vinaigre de riz","1 c. à soupe de sucre","1 grosse pincée de sel"], steps:["Rincer 4 fois à l'eau froide les 3 petits verres de riz à sushi.","Mettre le riz dans une casserole avec 4 petits verres d'eau (le même verre) et porter à ébullition.","Dès que ça bout, baisser le feu, couvrir et laisser cuire à toute petite ébullition 15 minutes pile.","Éteindre le feu, déplacer la casserole et laisser reposer encore quelques minutes, toujours couvert.","Faire chauffer 15 secondes au micro-ondes le vinaigre de riz avec le sucre et la grosse pincée de sel.","Verser sur le riz et mélanger."], tip:"La légende s'arrête au riz : le montage en dot cake se fait ensuite au choix (billes de riz, garnitures en dots)."},
-{
-    id: "lasagnes-one-pot", cat: "sale", name: "One-pot lazy lasagna aux lentilles",
-    time: "50 min", parts: "4-6 pers.", origin: "Inspiré de @anotheredayof.eating (recette déduite)",
-    desc: "Une lasagne sans four ni montage : les lentilles mijotent, les feuilles de pâte cuisent à couvert directement dans la sauce. Zéro vaisselle.",
-    ingredients: [
-      "200 g de lentilles vertes ou brunes",
-      "1 oignon, 1 carotte, 2 gousses d'ail",
-      "700 g de passata (ou purée de tomates)",
-      "75 cl de bouillon de légumes",
-      "9 à 12 feuilles de lasagne (entières ou cassées)",
-      "150 g de mozzarella", "50 g de parmesan",
-      "Origan, basilic frais", "Sel, poivre, huile d'olive"
-    ],
-    steps: [
-      "Faire revenir l'oignon, la carotte et l'ail émincés dans un grand faitout avec un filet d'huile.",
-      "Ajouter les lentilles rincées, la passata et la moitié du bouillon. Saler, poivrer, ajouter l'origan. Couvrir et laisser mijoter 25 minutes en remuant de temps en temps.",
-      "Quand les lentilles sont presque cuites, goûter et rectifier : la sauce doit rester légèrement liquide.",
-      "Immerger les feuilles de lasagne dans la sauce en les répartissant, ajouter le reste de bouillon chaud si besoin pour qu'elles soient juste couvertes.",
-      "Couvrir et cuire à feu doux 15 à 20 minutes : les pâtes cuisent à l'étouffée dans la sauce, sans remuer pour ne pas les briser.",
-      "Parsemer de mozzarella et de parmesan, couvrir encore 5 minutes pour faire fondre (passer sous le grill pour gratiner si on aime doré).",
-      "Laisser reposer 5 minutes, parsemer de basilic et servir directement dans le faitout."
-    ],
-    tip: "La règle d'or du one-pot : le liquide doit affleurer les pâtes, pas plus. Les feuilles de lasagne fraîches cuisent plus vite que les sèches."
-  },
-{id:"carbonara-ail-confit", cat:"sale", name:"Pâtes carbonara à l'ail confit", time:"45 min", parts:"3", origin:"@charlie.ma.vie", desc:"Des carbonara revisitées à ma façon avec de l'ail confit — ce sont les meilleures, je veux rien savoir.", ingredients:["500 g de pâtes","1 tête d'ail","80 g de parmesan","6 g de persil ciselé","30 g de beurre mou","3 jaunes d'œufs","250 g de lard fumé (ou du guanciale)","1 pincée de poivre"], steps:["Couper le chapeau de la tête d'ail, la mettre dans une mini cocotte ou en papillote (enveloppée dans du papier cuisson) avec une pincée de sel et un filet d'huile. Cuisson 35 min à 200°C.","Dans un saladier, ajouter le parmesan, le persil, le beurre et les jaunes d'œufs.","Couper les tranches de lard en morceaux et les faire cuire à la poêle jusqu'à ce qu'ils soient bien grillés. Verser un peu du gras dans la sauce, ça va la rendre davantage onctueuse.","Mixer les morceaux de lard, les ajouter à la sauce.","Presser la tête d'ail, écraser la chair et l'ajouter aussi.","Bien mélanger, sans oublier l'eau de cuisson des pâtes. On termine par les pâtes et c'est déjà prêt !"]},
-{
+      id: "gratin-brocoli-comte", cat: "sansgluten", name: "Gratin brocoli, Comté, butter beans & noix",
+      time: "45 min", parts: "4-6 pers.", origin: "Inspiré de @boroughchef",
+      desc: "Le comfort food optimal : brocoli, Comté fruité, butter beans fondantes et noix grillées, gratinés au four. À servir avec une grosse salade.",
+      ingredients: [
+        "2 brocoli",
+        "180 g de Comté râpé",
+        "400 g de butter beans (haricots cocos blancs, en bocal)",
+        "Une poignée de cerneaux de noix",
+        "20 cl de crème entière (ou une béchamel légère)",
+        "1 gousse d'ail", "Noix de muscade", "Sel, poivre", "Chapelure (facultatif)"
+      ],
+      steps: [
+        "Cuire les brocoli séparés en bouquets 5 à 6 minutes à la vapeur : ils doivent rester fermes.",
+        "Égoutter et rincer les butter beans.",
+        "Frotter le plat à gratin avec la gousse d'ail, puis y disposer brocoli et butter beans.",
+        "Napper de crème (ou béchamel) assaisonnée de muscade, sel et poivre.",
+        "Couvrir de Comté râpé, parsemer de noix concassées (et d'un peu de chapelure pour un gratin plus croustillant).",
+        "Cuire 20 à 25 minutes à 190 °C, jusqu'à ce que le dessus soit doré et bouillonnant.",
+        "Laisser reposer 5 minutes et servir avec une grosse salade."
+      ],
+      tip: "Les noix grillées 5 minutes au four avant d'être parsemées libèrent beaucoup plus de parfum."
+    },
+    {
+      id: "lasagnes-one-pot", cat: "sale", name: "One-pot lazy lasagna aux lentilles",
+      time: "50 min", parts: "4-6 pers.", origin: "Inspiré de @anotheredayof.eating (recette déduite)",
+      desc: "Une lasagne sans four ni montage : les lentilles mijotent, les feuilles de pâte cuisent à couvert directement dans la sauce. Zéro vaisselle.",
+      ingredients: [
+        "200 g de lentilles vertes ou brunes",
+        "1 oignon, 1 carotte, 2 gousses d'ail",
+        "700 g de passata (ou purée de tomates)",
+        "75 cl de bouillon de légumes",
+        "9 à 12 feuilles de lasagne (entières ou cassées)",
+        "150 g de mozzarella", "50 g de parmesan",
+        "Origan, basilic frais", "Sel, poivre, huile d'olive"
+      ],
+      steps: [
+        "Faire revenir l'oignon, la carotte et l'ail émincés dans un grand faitout avec un filet d'huile.",
+        "Ajouter les lentilles rincées, la passata et la moitié du bouillon. Saler, poivrer, ajouter l'origan. Couvrir et laisser mijoter 25 minutes en remuant de temps en temps.",
+        "Quand les lentilles sont presque cuites, goûter et rectifier : la sauce doit rester légèrement liquide.",
+        "Immerger les feuilles de lasagne dans la sauce en les répartissant, ajouter le reste de bouillon chaud si besoin pour qu'elles soient juste couvertes.",
+        "Couvrir et cuire à feu doux 15 à 20 minutes : les pâtes cuisent à l'étouffée dans la sauce, sans remuer pour ne pas les briser.",
+        "Parsemer de mozzarella et de parmesan, couvrir encore 5 minutes pour faire fondre (passer sous le grill pour gratiner si on aime doré).",
+        "Laisser reposer 5 minutes, parsemer de basilic et servir directement dans le faitout."
+      ],
+      tip: "La règle d'or du one-pot : le liquide doit affleurer les pâtes, pas plus. Les feuilles de lasagne fraîches cuisent plus vite que les sèches."
+    },
+  {
       id: "cookies", cat: "sucre", emoji: "🍪​", name: "Cookies pois chiches & butternut",
       time: "30 min", parts: "12 cookies", origin: "Vu chez @marco.madewell",
       desc: "Des cookies healthy sans farine ni beurre : pois chiches et butternut mixés, miel et vanille, pépites de chocolat. Moelleux et surprenants.",
@@ -313,6 +305,14 @@ const RECETTES = [
       ],
       tip: "La recette originale de @marco.madewell se fait sans butternut, avec du beurre de cacahuète pour le liant : une variante à tester selon le placard. Version vegan : remplacer le miel par du sirop d'érable."
     },
+// ---------------- RÉSEAUX ----------------    
+{id:"tiramisu-chia", cat:"sucre", name:"Tiramisu chia pudding protéiné", time:"5 min + 2 h au frais", parts:"2", origin:"@aurafigueroaa", desc:"Qui a dit que manger sainement signifiait faire ses adieux au dessert ? Celui-ci se prépare en 5 minutes, il est délicieux et combine deux priorités : protéines + fibres.", ingredients:["150 g de yaourt grec nature","2 c. à soupe de graines de chia","1 shot d'expresso (2 si tu l'aimes plus fort)","Stévia au goût","1 dose de protéine en poudre sans saveur (facultatif)","Cacao en poudre + café en poudre pour saupoudrer"], steps:["Mélanger le tout, verser dans un moule et réfrigérer au minimum 2 heures.","Démouler, saupoudrer de cacao et de café par-dessus et c'est prêt."], tip:"La chia apporte fibres, bonnes graisses et ALA (oméga-3 végétal). Macros avec protéine : ~320-340 kcal, dont 45-47 g de protéines."},
+{id:"ramen-maison", cat:"sansgluten", name:"Ramen maison ultra gourmand", time:"40 min", parts:"2", origin:"@chezmisa", desc:"Un bouillon riche et parfumé, des nouilles fondantes, un œuf parfaitement coulant… impossible d'y résister.", ingredients:["1 L de bouillon de volaille (ou de légumes)","2 gousses d'ail","1 morceau de gingembre frais","2 c. à soupe de sauce soja","1 c. à soupe de miso (facultatif mais recommandé)","1 c. à café d'huile de sésame","Flocons de piment (selon ton goût)","200 g de nouilles ramen (de riz pour du sans gluten)","150 g de bœuf haché (ou de porc)","2 œufs","Champignons (shiitakés ou pleurotes)","Pak choï ou épinards","Graines de sésame","Oignons verts émincés"], steps:["Bouillon : faire revenir l'ail et le gingembre râpé avec l'huile de sésame dans une casserole. Ajouter le bouillon, la sauce soja, le miso et les flocons de piment, puis laisser frémir à feu doux 15-20 minutes.","Œufs : les plonger 6 minutes dans l'eau bouillante, les refroidir aussitôt dans l'eau froide, les écaler délicatement et réserver.","Garnitures : faire revenir le bœuf haché dans une poêle jusqu'à ce qu'il soit bien doré, ajouter les champignons et laisser légèrement caraméliser.","Nouilles & légumes : cuire les nouilles selon les indications, ajouter le pak choï ou les épinards dans le bouillon les dernières minutes.","Dressage : disposer les nouilles dans un bol, verser le bouillon bien chaud, ajouter le bœuf, les légumes et l'œuf coupé en deux. Saupoudrer de sésame et d'oignons verts."], tip:"Plus crémeux : une cuillère de lait de coco. Plus épicé : un filet d'huile pimentée. Version veggie : remplacer la viande par du tofu croustillant."},
+{id:"spicy-chicken-ramen", cat:"sansgluten", name:"Spicy chicken rice noodle bowl", time:"20 min", parts:"2", origin:"@modernflavour", desc:"Le repas le plus réconfortant dans un bol : un bol de nouilles de riz façon ramen au poulet épicé, parfait pour la rotation des repas de la semaine.", ingredients:["4 tasses (1 L) de bouillon de poulet","2 gousses d'ail","1 c. à café de gingembre (en bocal)","1 c. à soupe de sauce soja","1 c. à café d'huile de sésame","1 c. à café de vinaigre de riz","1 c. à soupe de chili crisp","Quelques tours de moulin à poivre","2 hauts de cuisse de poulet cuits","100 g de nouilles de riz","2 œufs","Coriandre fraîche","Graines de sésame","1 citron vert"], steps:["Porter le bouillon de poulet à léger frémissement à feu moyen.","Ajouter l'ail et le gingembre, laisser frémir 5 minutes pour parfumer le bouillon.","Incorporer la sauce soja, l'huile de sésame, le vinaigre de riz, le chili crisp et quelques tours de poivre.","Ajouter les cuisses de poulet cuites et laisser cuire encore 3 à 4 minutes, jusqu'à ce qu'elles soient bien chaudes.","Pendant ce temps, cuire les nouilles de riz selon les indications du paquet, les égoutter et les répartir dans deux bols.","Porter une petite casserole d'eau à ébullition, y plonger délicatement les œufs et cuire 6 min 30 à 7 minutes pour des jaunes coulants. Les transférer aussitôt dans un bain d'eau glacée, les écaler et les couper en deux.","Répartir le bouillon chaud et le poulet sur les nouilles.","Garnir chaque bol d'un œuf mollet, de coriandre fraîche, de graines de sésame et d'un bon filet de citron vert avant de servir."]},
+{id:"poulet-coreen-express", cat:"sale", name:"Poulet à la coréenne express", time:"20 min", parts:"4", origin:"@mariegourmandise", desc:"Rapide, facile, ultra gourmande et validée par toute la famille : un poulet croustillant, des légumes fondants et une sauce sucrée-salée pleine de saveurs, à l'Air Fryer.", ingredients:["4 blancs de poulet","1 brocoli","250 g de mange-tout","250 g de carottes","5 c. à soupe d'huile de sésame","5 c. à soupe de sauce soja","1 c. à soupe de ketchup","1 c. à soupe de miel (ou sirop d'érable)","1 c. à café d'ail en poudre","2 c. à soupe de fécule de maïs","Graines de sésame (facultatif)"], steps:["Couper le poulet en dés et l'enrober de fécule de maïs.","Cuire le poulet en mode Air Fry à 180°C pendant 20 min en mélangeant à mi-cuisson (à défaut, au four ou à la poêle).","Découper les légumes en morceaux de taille similaire pour une cuisson homogène et les cuire à la vapeur 20 min en mélangeant à mi-cuisson.","Pendant ce temps, mélanger l'huile de sésame, la sauce soja, le miel, le ketchup et l'ail pour préparer la sauce.","Une fois le poulet bien croustillant, le mélanger avec la sauce pour bien l'enrober.","Servir avec du riz, des pommes de terre ou des nouilles de riz."]},
+{id:"verrines-chocolat", cat:"sucre", name:"Verrines pudding coco-chocolat", time:"10 min + 1 h au frais", parts:"2 à 3", origin:"@kilukrucrusine", desc:"Le dessert qui calme les envies de sucre, sans sucre raffiné. Crémeux, gourmand et riche en fibres grâce au gel de chia, pour un dessert qui rassasie durablement.", ingredients:["250 ml de gel de chia","200 ml de lait de coco","3 c. à soupe de noix de coco râpée","1 c. à café d'extrait de vanille (facultatif)","30 g de chocolat noir (70 % ou plus)","2 à 3 c. à soupe de lait de coco"], steps:["Mélanger le gel de chia, le lait de coco, la noix de coco râpée et la vanille jusqu'à obtenir une texture homogène.","Répartir dans des verrines et laisser reposer au réfrigérateur au moins 1 heure.","Faire fondre le chocolat avec le lait de coco jusqu'à obtenir une sauce bien lisse.","Verser la sauce sur le pudding juste avant de servir."], tip:"Le gel de chia se prépare à l'avance et se conserve jusqu'à 3 jours au réfrigérateur."},
+{id:"sushi-dot-cake", cat:"sale", name:"Sushi dot cake", time:"30 min", parts:"4 à 6", origin:"@not_so_superflu", desc:"La recette trend du sushi dot cake : ultra facile à faire, rapide et surtout trop bon. On commence par un riz à sushi parfaitement assaisonné.", ingredients:["3 petits verres de riz à sushi","4 petits verres d'eau (le même verre)","4 c. à soupe de vinaigre de riz","1 c. à soupe de sucre","1 grosse pincée de sel"], steps:["Rincer 4 fois à l'eau froide les 3 petits verres de riz à sushi.","Mettre le riz dans une casserole avec 4 petits verres d'eau (le même verre) et porter à ébullition.","Dès que ça bout, baisser le feu, couvrir et laisser cuire à toute petite ébullition 15 minutes pile.","Éteindre le feu, déplacer la casserole et laisser reposer encore quelques minutes, toujours couvert.","Faire chauffer 15 secondes au micro-ondes le vinaigre de riz avec le sucre et la grosse pincée de sel.","Verser sur le riz et mélanger."], tip:"La légende s'arrête au riz : le montage en dot cake se fait ensuite au choix (billes de riz, garnitures en dots)."},
+{id:"carbonara-ail-confit", cat:"sale", name:"Pâtes carbonara à l'ail confit", time:"45 min", parts:"3", origin:"@charlie.ma.vie", desc:"Des carbonara revisitées à ma façon avec de l'ail confit — ce sont les meilleures, je veux rien savoir.", ingredients:["500 g de pâtes","1 tête d'ail","80 g de parmesan","6 g de persil ciselé","30 g de beurre mou","3 jaunes d'œufs","250 g de lard fumé (ou du guanciale)","1 pincée de poivre"], steps:["Couper le chapeau de la tête d'ail, la mettre dans une mini cocotte ou en papillote (enveloppée dans du papier cuisson) avec une pincée de sel et un filet d'huile. Cuisson 35 min à 200°C.","Dans un saladier, ajouter le parmesan, le persil, le beurre et les jaunes d'œufs.","Couper les tranches de lard en morceaux et les faire cuire à la poêle jusqu'à ce qu'ils soient bien grillés. Verser un peu du gras dans la sauce, ça va la rendre davantage onctueuse.","Mixer les morceaux de lard, les ajouter à la sauce.","Presser la tête d'ail, écraser la chair et l'ajouter aussi.","Bien mélanger, sans oublier l'eau de cuisson des pâtes. On termine par les pâtes et c'est déjà prêt !"]},
 {id:"mealprep-poulet-tomate", cat:"sale", name:"Poulet à la tomate (meal prep en sachet)", time:"10 min de préparation + congélation", parts:"3 portions", origin:"@coco_est_en_cuisine", desc:"3 meal prep = 3 repas du soir pour la semaine, à préparer à l'avance et à congeler en sachet. Ici, la version poulet-tomate.", ingredients:["400 g de poulet","200 g de champignons","100 g de poivrons & oignons rouges","400 g de tomates concassées","1 c. à café de paprika fumé","Ail en poudre","1 c. à soupe d'huile d'olive"], steps:["Mettre tous les ingrédients dans le sachet, mélanger, fermer et direction le congélateur.","Le matin : sachet au réfrigérateur pour décongeler tranquillement.","Le soir : verser dans une sauteuse et faire cuire, avec l'accompagnement de votre choix (riz, pâtes, semoule…)."]},
 {id:"mealprep-poulet-moutarde", cat:"sale", name:"Poulet moutarde, courgettes & champignons (meal prep en sachet)", time:"10 min de préparation + congélation", parts:"3 portions", origin:"@coco_est_en_cuisine", desc:"3 meal prep = 3 repas du soir pour la semaine, à préparer à l'avance et à congeler en sachet. Ici, la version poulet-moutarde.", ingredients:["400 g de poulet, laissés entiers","1 grosse courgette (300 g)","200 g de champignons","1 à 2 c. à soupe de moutarde","Herbes de Provence","1 c. à soupe d'huile","Sel & poivre"], steps:["Mettre tous les ingrédients dans le sachet, mélanger, fermer et direction le congélateur.","Le matin : sachet au réfrigérateur pour décongeler tranquillement.","Le soir : verser dans une sauteuse et faire cuire, avec l'accompagnement de votre choix (riz, pâtes, semoule…)."]},
 {id:"mealprep-boeuf-asiatique", cat:"sale", name:"Bœuf asiatique (meal prep en sachet)", time:"10 min de préparation + congélation", parts:"3 portions", origin:"@coco_est_en_cuisine", desc:"3 meal prep = 3 repas du soir pour la semaine, à préparer à l'avance et à congeler en sachet. Ici, la version bœuf asiatique.", ingredients:["400 g de rumsteck en fines lamelles","200 g de carottes","200 g de pousses de soja & brocolis","1 c. à soupe de miel","2 c. à soupe de sauce soja","1 c. à café d'huile de sésame","Gingembre & ail en poudre"], steps:["Mettre tous les ingrédients dans le sachet, mélanger, fermer et direction le congélateur.","Le matin : sachet au réfrigérateur pour décongeler tranquillement.","Le soir : faire d'abord cuire les légumes environ 10 min, puis ajouter le bœuf et poursuivre la cuisson jusqu'à ce qu'il soit cuit à cœur. Ajouter un peu d'eau en fin de cuisson pour obtenir davantage de bouillon."], tip:"Servir avec des nouilles de riz."},
