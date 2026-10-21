@@ -53,10 +53,10 @@
 
 // ============================================================
 // 📌 BACK DU SITE
-// Nouvelle recette → TAGS = du plus ancien au plus récent
+// Nouvelle recette → TAGS (peu importe l'ordre)
 // + colle son objet au début de RECETTES = du plus récent au plus ancien
-// Une section RECETTES PERSO reste épinglée en haut de RECETTES
-// render() trie par onglet (champ cat).
+// Dans la section FAMILLE ou RÉSEAUX
+// render() trie par onglet (champ cat = catégories).
 // ============================================================
 
 const TAGS = {
@@ -176,9 +176,9 @@ const TAGS = {
   "mealprep-boeuf-asiatique": "viande",
   "mealprep-poulet-moutarde": "viande",
   "mealprep-poulet-tomate": "viande",
-  "cookies-pois-chiches-butternut": "vegan",
+  "cookies-pois-chiches": "vegan",
   "carbonara-ail-confit": "viande",
-  "one-pot-lasagne-lentilles": "végé",
+  "one-pot-lasagna": "végé",
   "sushi-dot-cake": "vegan",
   "gratin-brocoli-comte": "végé",
   "verrines-chocolat": "vegan",
@@ -259,7 +259,7 @@ const RECETTES = [
       tip: "Les noix grillées 5 minutes au four avant d'être parsemées libèrent beaucoup plus de parfum."
     },
     {
-      id: "lasagnes-one-pot", cat: "sale", name: "One-pot lazy lasagna aux lentilles",
+      id: "one-pot-lasagna", cat: "sale", name: "One-pot lazy lasagna aux lentilles",
       time: "50 min", parts: "4-6 pers.", origin: "Inspiré de @anotheredayof.eating (recette déduite)",
       desc: "Une lasagne sans four ni montage : les lentilles mijotent, les feuilles de pâte cuisent à couvert directement dans la sauce. Zéro vaisselle.",
       ingredients: [
@@ -283,7 +283,7 @@ const RECETTES = [
       tip: "La règle d'or du one-pot : le liquide doit affleurer les pâtes, pas plus. Les feuilles de lasagne fraîches cuisent plus vite que les sèches."
     },
   {
-      id: "cookies", cat: "sucre", name: "Cookies pois chiches & butternut",
+      id: "cookies-pois-chiches", cat: "sucre", name: "Cookies pois chiches & butternut",
       time: "30 min", parts: "12 cookies", origin: "Vu chez @marco.madewell",
       desc: "Des cookies healthy sans farine ni beurre : pois chiches et butternut mixés, miel et vanille, pépites de chocolat. Moelleux et surprenants.",
       ingredients: [
