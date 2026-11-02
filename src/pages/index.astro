@@ -32,7 +32,7 @@ const DATA = JSON.stringify(RECETTES).replace(/</g, '\\u003c');
     </label>
   </header>
   <div class="toolbar">
-    <div class="tabs">
+    <div class="tabs" id="cats">
       <button class="tab active" data-cat="sale">🧂 Salé</button>
       <button class="tab" data-cat="sansgluten">🌾 Sans gluten</button>
       <button class="tab" data-cat="sucre">🍰 Sucré</button>
@@ -108,6 +108,8 @@ function render() {
     return okCat && okTag && text.includes(q);
   });
   document.getElementById("tagfilters").style.display = (activeCat === "sucre" && !q) ? "none" : "flex";
+  // Pendant une recherche : onglets masqués (résultats toutes catégories), tags conservés pour affiner
+  document.getElementById("cats").style.display = q ? "none" : "";
   catTitle.textContent = q ? "Recherche" : CATS[activeCat].label;
   grid.innerHTML = list.map(cardHTML).join("");
   count.textContent = list.length + (list.length > 1 ? " recettes" : " recette");
