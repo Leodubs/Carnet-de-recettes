@@ -84,22 +84,22 @@ let activeTag = null;
 
 function tagsOf(r) { return r.tags || []; }
 function tagsHTML(r) {
-  return \`<div class="card-tags">\${tagsOf(r).map(t =>
-    \`<span class="tag-pill pill-\${t === "végé" ? "vege" : t}">\${t}</span>\`).join("")}</div>\`;
+  return `<div class="card-tags">${tagsOf(r).map(t =>
+    `<span class="tag-pill pill-${t === "végé" ? "vege" : t}">${t}</span>`).join("")}</div>`;
 }
 function cardHTML(r) {
-  return \`
-    <article class="card" data-id="\${r.id}" tabindex="0" role="button" aria-label="Ouvrir la recette \${r.name}">
+  return `
+    <article class="card" data-id="${r.id}" tabindex="0" role="button" aria-label="Ouvrir la recette ${r.name}">
       <div class="card-body">
-        \${tagsHTML(r)}
-        <h3>\${r.name}</h3>
-        <p class="desc">\${r.desc}</p>
+        ${tagsHTML(r)}
+        <h3>${r.name}</h3>
+        <p class="desc">${r.desc}</p>
         <div class="meta">
-          <span class="chip">⏱ \${r.time}</span>
-          <span class="chip">🍽 \${r.parts}</span>
+          <span class="chip">⏱ ${r.time}</span>
+          <span class="chip">🍽 ${r.parts}</span>
         </div>
       </div>
-    </article>\`;
+    </article>`;
 }
 function render() {
   const q = searchInput.value.trim().toLowerCase();
@@ -146,33 +146,33 @@ const modal = document.getElementById("modal");
 function openRecipe(id) {
   const r = RECETTES.find(x => x.id === id);
   if (!r) return;
-  modal.innerHTML = \`
-    <div class="modal-head \${r.cat}">
+  modal.innerHTML = `
+    <div class="modal-head ${r.cat}">
       <button class="close" aria-label="Fermer">✕</button>
-      <h2>\${r.name}</h2>
-      <div class="origin">\${r.origin}</div>
+      <h2>${r.name}</h2>
+      <div class="origin">${r.origin}</div>
       <div class="modal-meta">
-        <span class="chip">⏱ \${r.time}</span>
-        <span class="chip">🍽 \${r.parts}</span>
-        <span class="chip">\${CATS[r.cat].chipLabel}</span>
-        \${tagsOf(r).map(t => \`<span class="tag-pill pill-\${t === "végé" ? "vege" : t}">\${t}</span>\`).join("")}
+        <span class="chip">⏱ ${r.time}</span>
+        <span class="chip">🍽 ${r.parts}</span>
+        <span class="chip">${CATS[r.cat].chipLabel}</span>
+        ${tagsOf(r).map(t => `<span class="tag-pill pill-${t === "végé" ? "vege" : t}">${t}</span>`).join("")}
       </div>
     </div>
     <div class="modal-body">
       <div>
         <h3>Ingrédients</h3>
         <ul class="ingredients">
-          \${r.ingredients.map(i => \`<li><span class="box">✓</span><span>\${i}</span></li>\`).join("")}
+          ${r.ingredients.map(i => `<li><span class="box">✓</span><span>${i}</span></li>`).join("")}
         </ul>
       </div>
       <div>
         <h3>Préparation</h3>
         <ol class="steps">
-          \${r.steps.map(s => \`<li>\${s}</li>\`).join("")}
+          ${r.steps.map(s => `<li>${s}</li>`).join("")}
         </ol>
-        \${r.tip ? \`<div class="tip"><strong>Le truc en plus :</strong> \${r.tip}</div>\` : ""}
+        ${r.tip ? `<div class="tip"><strong>Le truc en plus :</strong> ${r.tip}</div>` : ""}
       </div>
-    </div>\`;
+    </div>`;
   overlay.classList.add("open");
   document.body.style.overflow = "hidden";
   modal.querySelector(".close").addEventListener("click", closeRecipe);
