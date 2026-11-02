@@ -102,7 +102,7 @@ function render() {
   const q = searchInput.value.trim().toLowerCase();
   // Recherche = toutes catégories confondues ; sans recherche, onglet actif
   const list = RECETTES.filter(r => {
-    const okCat = !q || r.cat === activeCat;
+    const okCat = !!q || r.cat === activeCat;
     const okTag = !activeTag || tagsOf(r).includes(activeTag);
     const text = (r.name + " " + r.desc + " " + r.origin + " " + r.ingredients.join(" ")).toLowerCase();
     return okCat && okTag && text.includes(q);
