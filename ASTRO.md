@@ -1,12 +1,11 @@
-# Portage Astro (branche `astro`)
+# Portage Astro
 
 Même design, même comportement (onglets, recherche, filtres de tags, modale, clic sur les
-ingrédients) que l'ancien `public/index.html` — mais les recettes vivent maintenant dans
+ingrédients) que l'ancien `public/index.html` — mais les recettes vivent dans
 `src/content/recipes/*.md`, un fichier par recette, avec un schéma typé
 (`src/content.config.ts`) : plus de bug silencieux (l'histoire du `TAGS .map`).
 
-⚠️ Cette branche est un portage en cours de validation : `master` garde le site en prod
-tant que le rendu Astro n'est pas validé visuellement.
+L'ancienne version HTML du site est conservée sur la branche `version-html`.
 
 ## Ajouter une recette
 1. Créer `src/content/recipes/<id-slug>.md` avec le frontmatter du schéma
@@ -22,5 +21,3 @@ tant que le rendu Astro n'est pas validé visuellement.
   repris quasi tel quel de l'ancien site (helper `tagsOf` conservé).
 - `src/content.config.ts` — schéma zod (build cassé si un champ manque).
 - `public/style.css` — inchangé, copie de l'ancien.
-- L'ancien `public/index.html` est supprimé sur cette branche uniquement (il serait copié
-  par Astro dans le build et écraserait la page générée).
