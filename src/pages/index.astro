@@ -23,7 +23,6 @@ const DATA = JSON.stringify(RECETTES).replace(/</g, '\\u003c');
     <link rel="stylesheet" href="/style.css">
   </head>
 <body>
-
   <header>
     <h1>Carnet de recettes<span class="dot">.</span></h1>
     <label class="search">
@@ -31,7 +30,6 @@ const DATA = JSON.stringify(RECETTES).replace(/</g, '\\u003c');
       <input id="searchInput" type="text" placeholder="Mon envie du moment" />
     </label>
   </header>
-
   <div class="toolbar">
     <div class="tabs">
       <button class="tab active" data-cat="sale">🧂 Salé</button>
@@ -46,7 +44,6 @@ const DATA = JSON.stringify(RECETTES).replace(/</g, '\\u003c');
     </div>
     <div class="count" id="count"></div>
   </div>
-
   <main>
     <div class="section-title">
       <h2 id="catTitle">Salé</h2>
@@ -55,19 +52,15 @@ const DATA = JSON.stringify(RECETTES).replace(/</g, '\\u003c');
     <div class="grid" id="grid"></div>
     <div class="empty" id="empty" style="display:none"></div>
   </main>
-
   <div class="overlay" id="overlay">
     <div class="modal" id="modal" role="dialog" aria-modal="true"></div>
   </div>
-
   <footer>
     <p>Prototype imaginé pour mes inspirations culinaires · Créé avec Mistral © <a href="https://eleonoredbs.com">Eleonore Dubois</a></p>
   </footer>
-
   <script type="application/json" id="recipes-data" set:html={DATA}></script>
   <script>
-// 📌 BACK DU SITE — pour ajouter une recette : créer un fichier .md dans src/content/recipes/
-// (voir ASTRO.md). Plus besoin d’éditer index.html ni les tableaux RECETTES/TAGS.
+// 📌 BACK DU SITE — pour ajouter une recette : créer un fichier .md dans src/content/recipes/ (voir ASTRO.md).
 const RECETTES = JSON.parse(document.getElementById('recipes-data').textContent);
 const CATS = {
   sale: { label: "Salé", chipLabel: "🧂 Partie salée" },
@@ -81,7 +74,6 @@ const searchInput = document.getElementById("searchInput");
 const count = document.getElementById("count");
 let activeCat = "sale";
 let activeTag = null;
-
 function tagsOf(r) { return r.tags || []; }
 function tagsHTML(r) {
   return `<div class="card-tags">${tagsOf(r).map(t =>
@@ -115,19 +107,13 @@ function render() {
   count.textContent = list.length + (list.length > 1 ? " recettes" : " recette");
   if (!list.length) {
     empty.style.display = "block";
-    empty.textContent = q
-      ? "Aucune recette ne correspond à ta recherche 😕"
-      : "Pas encore de recette ici — la section arrive bientôt 🌱";
-  } else {
-    empty.style.display = "none";
-  }
+    empty.textContent = q ? "Aucune recette ne correspond à ta recherche 😕" : "Pas encore de recette ici — la section arrive bientôt 🌱";
+  } else { empty.style.display = "none"; }
 }
 document.querySelectorAll(".tab").forEach(tab => {
   tab.addEventListener("click", () => {
     document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
-    tab.classList.add("active");
-    activeCat = tab.dataset.cat;
-    activeTag = null;
+    tab.classList.add("active"); activeCat = tab.dataset.cat; activeTag = null;
     document.querySelectorAll(".tagbtn").forEach(b => b.classList.remove("active"));
     render();
   });
@@ -135,8 +121,7 @@ document.querySelectorAll(".tab").forEach(tab => {
 document.querySelectorAll(".tagbtn").forEach(btn => {
   btn.addEventListener("click", () => {
     activeTag = activeTag === btn.dataset.tag ? null : btn.dataset.tag;
-    document.querySelectorAll(".tagbtn").forEach(b =>
-      b.classList.toggle("active", b.dataset.tag === activeTag));
+    document.querySelectorAll(".tagbtn").forEach(b => b.classList.toggle("active", b.dataset.tag === activeTag));
     render();
   });
 });
@@ -180,16 +165,10 @@ function openRecipe(id) {
     li.addEventListener("click", () => li.classList.toggle("done"));
   });
 }
-function closeRecipe() {
-  overlay.classList.remove("open");
-  document.body.style.overflow = "";
-}
+function closeRecipe() { overlay.classList.remove("open"); document.body.style.overflow = ""; }
 overlay.addEventListener("click", e => { if (e.target === overlay) closeRecipe(); });
 document.addEventListener("keydown", e => { if (e.key === "Escape") closeRecipe(); });
-grid.addEventListener("click", e => {
-  const card = e.target.closest(".card");
-  if (card) openRecipe(card.dataset.id);
-});
+grid.addEventListener("click", e => { const card = e.target.closest(".card"); if (card) openRecipe(card.dataset.id); });
 grid.addEventListener("keydown", e => {
   if (e.key === "Enter" || e.key === " ") {
     const card = e.target.closest(".card");

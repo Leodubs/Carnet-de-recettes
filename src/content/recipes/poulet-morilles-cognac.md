@@ -16,7 +16,7 @@ ingredients:
   - "1 tasse de morilles fraîches ou séchées"
   - "1/4 tasse de cognac"
   - "1/4 tasse de vin blanc"
-  - "1/2 tasse de bouillon de morilles"
+  - "1/2 tasse du bouillon des morilles"
   - "Petites patates à rôtir"
   - "Sel et poivre au goût"
 steps:
