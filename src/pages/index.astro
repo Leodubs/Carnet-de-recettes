@@ -28,6 +28,7 @@ const DATA = JSON.stringify(RECETTES).replace(/</g, '\\u003c');
     <label class="search">
       <span aria-hidden="true">🔎</span>
       <input id="searchInput" type="text" placeholder="Mon envie du moment" />
+      <button class="clear" id="searchClear" aria-label="Effacer la recherche" style="display:none">✕</button>
     </label>
   </header>
   <div class="toolbar">
@@ -71,14 +72,17 @@ const grid = document.getElementById("grid");
 const catTitle = document.getElementById("catTitle");
 const empty = document.getElementById("empty");
 const searchInput = document.getElementById("searchInput");
+const searchClear = document.getElementById("searchClear");
 const count = document.getElementById("count");
 let activeCat = "sale";
 let activeTag = null;
+
 function tagsOf(r) { return r.tags || []; }
 function tagsHTML(r) {
   return `<div class="card-tags">${tagsOf(r).map(t =>
     `<span class="tag-pill pill-${t === "végé" ? "vege" : t}">${t}</span>`).join("")}</div>`;
 }
+
 function cardHTML(r) {
   return `
     <article class="card" data-id="${r.id}" tabindex="0" role="button" aria-label="Ouvrir la recette ${r.name}">
@@ -93,27 +97,36 @@ function cardHTML(r) {
       </div>
     </article>`;
 }
+
 function render() {
   const q = searchInput.value.trim().toLowerCase();
+  // Recherche = toutes catégories confondues ; sans recherche, onglet actif
   const list = RECETTES.filter(r => {
-    const okCat = r.cat === activeCat;
+    const okCat = !q || r.cat === activeCat;
     const okTag = !activeTag || tagsOf(r).includes(activeTag);
     const text = (r.name + " " + r.desc + " " + r.origin + " " + r.ingredients.join(" ")).toLowerCase();
     return okCat && okTag && text.includes(q);
   });
-  document.getElementById("tagfilters").style.display = activeCat === "sucre" ? "none" : "flex";
-  catTitle.textContent = CATS[activeCat].label;
+  document.getElementById("tagfilters").style.display = (activeCat === "sucre" && !q) ? "none" : "flex";
+  catTitle.textContent = q ? "Recherche" : CATS[activeCat].label;
   grid.innerHTML = list.map(cardHTML).join("");
   count.textContent = list.length + (list.length > 1 ? " recettes" : " recette");
   if (!list.length) {
     empty.style.display = "block";
-    empty.textContent = q ? "Aucune recette ne correspond à ta recherche 😕" : "Pas encore de recette ici — la section arrive bientôt 🌱";
-  } else { empty.style.display = "none"; }
+    empty.textContent = q
+      ? "Aucune recette ne correspond à ta recherche 😕"
+      : "Pas encore de recette ici — la section arrive bientôt 🌱";
+  } else {
+    empty.style.display = "none";
+  }
 }
+
 document.querySelectorAll(".tab").forEach(tab => {
   tab.addEventListener("click", () => {
     document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
-    tab.classList.add("active"); activeCat = tab.dataset.cat; activeTag = null;
+    tab.classList.add("active");
+    activeCat = tab.dataset.cat;
+    activeTag = null;
     document.querySelectorAll(".tagbtn").forEach(b => b.classList.remove("active"));
     render();
   });
@@ -121,11 +134,24 @@ document.querySelectorAll(".tab").forEach(tab => {
 document.querySelectorAll(".tagbtn").forEach(btn => {
   btn.addEventListener("click", () => {
     activeTag = activeTag === btn.dataset.tag ? null : btn.dataset.tag;
-    document.querySelectorAll(".tagbtn").forEach(b => b.classList.toggle("active", b.dataset.tag === activeTag));
+    document.querySelectorAll(".tagbtn").forEach(b =>
+      b.classList.toggle("active", b.dataset.tag === activeTag));
     render();
   });
 });
-searchInput.addEventListener("input", render);
+
+// Recherche : bouton ✕ pour effacer en 1 clic
+searchInput.addEventListener("input", () => {
+  searchClear.style.display = searchInput.value ? "block" : "none";
+  render();
+});
+searchClear.addEventListener("click", () => {
+  searchInput.value = "";
+  searchClear.style.display = "none";
+  render();
+  searchInput.focus();
+});
+
 const overlay = document.getElementById("overlay");
 const modal = document.getElementById("modal");
 function openRecipe(id) {

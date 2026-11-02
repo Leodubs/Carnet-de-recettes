@@ -318,3 +318,15 @@
   }
   footer a { color: var(--ink-soft); text-decoration: none; font-weight: 600; }
   footer a:hover { color: var(--ink); text-decoration: underline; }
+  /* ---------- Recherche : bouton effacer ---------- */
+  .search .clear {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: .9rem;
+    color: var(--ink-faint);
+    padding: 0 2px;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .search .clear:hover { color: var(--ink); }
