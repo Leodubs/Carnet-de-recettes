@@ -153,7 +153,7 @@
   /* ---------- Mobile : 1 colonne ---------- */
   @media (max-width: 820px) {
     .grid { grid-template-columns: repeat(1, 1fr); gap: 14px; }
-    main { padding: 24px 14px 10px; }
+    main { padding: 24px 14px 110px; }
     header { padding: 44px 16px 22px; }
     .dock { bottom: calc(12px + env(safe-area-inset-bottom)); }
     .card-body { padding: 13px 14px 15px; }
