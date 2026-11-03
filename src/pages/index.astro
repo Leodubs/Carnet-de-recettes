@@ -25,11 +25,6 @@ const DATA = JSON.stringify(RECETTES).replace(/</g, '\\u003c');
 <body>
   <header>
     <h1>Carnet de recettes<span class="dot">.</span></h1>
-    <label class="search">
-      <span aria-hidden="true">🔎</span>
-      <input id="searchInput" type="text" placeholder="Mon envie du moment" />
-      <button class="clear" id="searchClear" aria-label="Effacer la recherche" style="display:none">✕</button>
-    </label>
   </header>
   <div class="toolbar">
     <div class="tabs" id="cats">
@@ -59,6 +54,13 @@ const DATA = JSON.stringify(RECETTES).replace(/</g, '\\u003c');
   <footer>
     <p>Prototype imaginé pour mes inspirations culinaires · Créé avec Mistral © <a href="https://eleonoredbs.com">Eleonore Dubois</a></p>
   </footer>
+  <div class="dock">
+    <label class="search">
+      <span aria-hidden="true">🔎</span>
+      <input id="searchInput" type="text" placeholder="Mon envie du moment" />
+      <button class="clear" id="searchClear" aria-label="Effacer la recherche" style="display:none">✕</button>
+    </label>
+  </div>
   <script type="application/json" id="recipes-data" set:html={DATA}></script>
   <script>
 // 📌 BACK DU SITE — pour ajouter une recette : créer un fichier .md dans src/content/recipes/ (voir ASTRO.md).
@@ -146,6 +148,8 @@ document.querySelectorAll(".tagbtn").forEach(btn => {
 searchInput.addEventListener("input", () => {
   searchClear.style.display = searchInput.value ? "block" : "none";
   render();
+  // Barre flottante : les résultats s'affichent en haut de page, on y ramène la vue
+  if (searchInput.value && window.scrollY > 0) window.scrollTo({ top: 0, behavior: "smooth" });
 });
 searchClear.addEventListener("click", () => {
   searchInput.value = "";
